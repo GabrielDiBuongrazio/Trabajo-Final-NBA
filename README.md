@@ -1,3 +1,10 @@
 # Trabajo-Final-NBA
- Llevar a cabo el trabajo final de computación
-Planteamiento del problema:
+# Instalamos los paquetes y funciones #
+library(tidyverse)
+library(stats)
+library(ggplot2)
+
+#Le ponemos nombre a la base de datos#
+DF <- NBA_G1
+
+#planteamiento del problema#
