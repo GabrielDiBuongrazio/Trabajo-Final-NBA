@@ -1,8 +1,11 @@
 ---
-title: "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
+title: Análisis de la relación entre estadísticas de equipos de la NBA con más y menos
+  victorias durante períodos de nueve años comprendido entre 1996 y 2023.
 output:
-  pdf_document : default
+  pdf_document: default
   word_document: default
+  html_document:
+    df_print: paged
 ---
 ## Introducción
 
@@ -60,17 +63,10 @@ w_period_3 <- w_period_3[order(w_period_3$w_prom, decreasing = TRUE),]
 
 w_period_3_max <- head(w_period_3, n = 1)
 w_period_3_min <- tail(w_period_3, n = 1)
-```
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(gridExtra)
-library(knitr)
-library(dplyr)
-library(readxl)
 #Dataframes de los equipos por períodos con todas las variables#
+
+df <- NBA_G1
 
 df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Charlotte Bobcats")
 
@@ -81,3 +77,21 @@ df_period3 <- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Orla
 
 
 ```{r setup, include=FALSE}
+```
+
+### Análisis de la defensea de los equipos por períodos:
+* Se tomaran en los tres períodos las estadísticas defensivas y se comparar centre ellas para ver la relación que tienen.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gridExtra)
+library(knitr)
+library(dplyr)
+library(readxl)}
+
+```
+
+
+
+
