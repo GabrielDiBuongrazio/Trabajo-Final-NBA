@@ -68,11 +68,9 @@ w_period_3_min <- tail(w_period_3, n = 1)
 
 df <- NBA_G1
 
-df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Charlotte Bobcats")
-
+df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
 df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
-
-df_period3 <- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Orlando Magic"|TEAM=="Los Angeles Clippers")                                                                     
+df_perio3 <- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")                                                                    
 
 
 
