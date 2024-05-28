@@ -78,7 +78,7 @@ df_perio3 <- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 ```
 
 ### Análisis de la defensea de los equipos por períodos:
-* Se tomaran en los tres períodos las estadísticas defensivas y se comparar centre ellas para ver la relación que tienen.
+* Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -88,7 +88,16 @@ library(knitr)
 library(dplyr)
 library(readxl)}
 
-```
+#Primero se crea un dataframe con solo las estadisticas defensivas (en este caso rebotes) y las victorias del equipo con media de victorias mas alta#
+DF_perio1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W, REB)
+#Luego se calcula el coeficiente de correlacion de las variables con el paquete PerformanceAnalytics#
+Cor <- chart.Correlation(DF_perio1_DEF)
+#Hacemos lo mismo con las estadisticas defensivas y victorias del equipo con media de victorias mas bajas en el periodo y sluego se compara con la anterior#
+DF_perio1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W, REB)
+#Luego se calcula el coeficiente de correlacion de las variables con el paquete PerformanceAnalytics#
+Cor <- chart.Correlation(DF_perio1_DEFmin)
+
+#Se puede ver que el coeficiente de correlación del equipo con mas victorias (en promedio) está signifidcativamente relacionado con los rebotes del equipo, mientras que el equipo con menos victorias en promedio también esta relacionado,pero inversamente a los rebotes del equipo#
 
 
 
