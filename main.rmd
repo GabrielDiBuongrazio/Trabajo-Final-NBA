@@ -106,7 +106,7 @@ df <- df %>%
   )) 
 
 
-team_by_period_w_prom <- df %>% group_by(TEAM, season_by_period) %>% summarise(w_prom = sum(W)/9)
+team_by_period_w_prom <- df %>% group_by(TEAM, season_by_period) %>% summarise(w_prom = mean(W))
 
 w_period_1 <- filter(team_by_period_w_prom, season_by_period  == 'period 1')
 
