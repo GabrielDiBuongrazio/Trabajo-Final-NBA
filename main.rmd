@@ -1,0 +1,111 @@
+---
+title: Análisis de la relación entre estadísticas de equipos de la NBA con más y menos
+  victorias durante períodos de nueve años comprendido entre 1996 y 2023.
+output:
+  pdf_document: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+```{r creación de objetos para los cálculos, , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gridExtra)
+library(knitr)
+library(dplyr)
+library(readxl)
+NBA_G1 <- read_excel("~/Base de datos NBA/NBA G1.xlsx")
+df <- NBA_G1 
+df <- df %>%
+  mutate(season_by_period=case_when(
+    SEASON %in% c('2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23') ~ "period 3",
+    SEASON %in% c('2005-06', '2006-07', '2007-08', '2008-09', '2009-10', '2010-11', '2011-12', '2012-13', '2013-14') ~ "period 2", 
+    SEASON %in% c('1996-97', '1997-98', '1998-99', '1999-00', '2000-01', '2001-02', '2002-03', '2003-04', '2004-05') ~ "period 1",
+    TRUE ~ "other"
+  )) 
+
+
+team_by_period_w_prom <- df %>% group_by(TEAM, season_by_period) %>% summarise(w_prom = mean(W))
+
+w_period_1 <- filter(team_by_period_w_prom, season_by_period  == 'period 1')
+
+w_period_1 <- w_period_1[order(w_period_1$w_prom, decreasing = TRUE),]
+
+w_period_1_max <- head(w_period_1, n = 1)
+w_period_1_min <- tail(w_period_1, n = 1)
+
+
+w_period_2 <- filter(team_by_period_w_prom, season_by_period  == 'period 2')  
+
+w_period_2 <- w_period_2[order(w_period_2$w_prom, decreasing = TRUE),]
+
+w_period_2_max <- head(w_period_2, n = 1)
+w_period_2_min <- tail(w_period_2, n = 1)
+
+w_period_3 <- filter(team_by_period_w_prom, season_by_period  == 'period 3')  
+
+w_period_3 <- w_period_3[order(w_period_3$w_prom, decreasing = TRUE),]
+
+w_period_3_max <- head(w_period_3, n = 1)
+w_period_3_min <- tail(w_period_3, n = 1)
+
+#Dataframes de los equipos por períodos con todas las variables#
+
+
+df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
+df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
+df_period3 <- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")                                                                    
+
+```
+
+## Introducción
+
+En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023. Para lograrlo, seguiremos los siguientes pasos:
+
+### Cálculo del promedio de victorias:
+* Calcularemos el promedio de victorias de cada equipo en los tres periodos de nueve años mencionados.
+* Compararemos los valores máximos y mínimos para identificar los equipos con más y menos victorias, respectivamente.
+
+### Análisis de la relación defensa-victorias:
+* Investigaremos la relación entre las victorias y las estadísticas defensiva de los dos equipos. Representaremos esta relación mediante un gráfico de dispersión.
+
+### Análisis de la relación estadísticas ofensivas-victorias:
+* Estudiaremos la relación entre las victorias y las estadísticas ofensivas de los equipos dos equipos. Utilizaremos un gráfico de dispersión para visualizar esta relación.
+
+
+### Análisis de la defensa de los equipos por períodos:
+* Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
+
+```{r}
+
+#Primero se crea un dataframe con solo las estadisticas defensivas (en este caso rebotes) y las victorias del equipo con media de victorias mas alta#
+DF_perio1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W, REB)
+#Luego se calcula el coeficiente de correlacion de las variables con el paquete PerformanceAnalytics#
+Cor <- chart.Correlation(DF_perio1_DEF)
+#Hacemos lo mismo con las estadisticas defensivas y victorias del equipo con media de victorias mas bajas en el periodo y sluego se compara con la anterior#
+DF_perio1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W, REB)
+#Luego se calcula el coeficiente de correlacion de las variables con el paquete PerformanceAnalytics#
+Cor <- chart.Correlation(DF_perio1_DEFmin)
+
+#Se puede ver que el coeficiente de correlación del equipo con mas victorias (en promedio) está signifidcativamente relacionado con los rebotes del equipo, mientras que el equipo con menos victorias en promedio también esta relacionado,pero inversamente a los rebotes del equipo#
+```
+### Análisis de la defensa de los equipos por periodos
+*Periodo 1
+```{r}
+
+#Para el equipo con mas victorias en promedio en el periodo 1
+
+equipo1_periodo1 <- df_period1 %>% filter(TEAM =="Golden State Warriors")
+
+equipo2_periodo1 <- df_period1 %>% filter(TEAM == "Los Angeles Lakers")
+
+
+```
+*Periodo 2
+
+
+
+
+
+
+
