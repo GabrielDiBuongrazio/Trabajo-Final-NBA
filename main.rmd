@@ -110,9 +110,13 @@ DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W,D
 Cor <- chart.Correlation(DF_period3_DEFmin)
 Grperiod3 <- ggplot(df_period3, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
 Grperiod3
+```
+### Análisis de la defensea de los equipos por períodos:
+* El primer período se puede ver que tienen una correlación alta las victorias con los rebotes ofensivos,lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación inversamente alta, lo que quiere decir que los rebotes bajan las victorias aumentan.
 
+* En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con mas victorias como el que tiene menos victorias,lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias
 
-
+* En el tercer período el equipo con mas victorias tiene una relación alta con los rebotes, mientras que el equipo con menos victorias tiene una relación casi nula. Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes
 
 
 
