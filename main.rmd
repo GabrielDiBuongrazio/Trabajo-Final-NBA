@@ -83,33 +83,34 @@ library(gridExtra)
 library(knitr)
 library(dplyr)
 library(readxl)
-DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W, REB) 
+DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_perio1_DEFmax)
 
-DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W, REB)
+DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_perio1_DEFmin)
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1, aes(x=W, y= REB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES")
+Grperiod1 <- ggplot(df_period1, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES")
 Grperiod1
 
- DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(W, REB) 
+ DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(W,DREB) 
 Cor <- chart.Correlation(DF_perio2_DEFmax)
 
-DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W, REB)
+DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_perio2_DEFmin)
 ###Gráficpo de dispersión
-Grperiod2 <- ggplot(df_period2, aes(x=W, y= REB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
+Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_gray() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
 Grperiod2
 
 
- DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(W, REB)
+ DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_perio3_DEFmax)
 
-DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W, REB)
+DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period3_DEFmin)
-Grperiod3 <- ggplot(df_period3, aes(x=W, y= REB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
+Grperiod3 <- ggplot(df_period3, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
 Grperiod3
+
 
 
 
