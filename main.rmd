@@ -1,17 +1,15 @@
 ---
-  title: Análisis de la relación entre estadísticas de equipos de la NBA con más y menos
-victorias durante períodos de nueve años comprendido entre 1996 y 2023.
-output:
-  pdf_document: default
+title: "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
+output: pdf_document
+pdf_document: default
 word_document: default
-html_document:
-  df_print: paged
+df_print: paged
 ---
-  ## Introducción
+### Introducción
   
-  En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023. Para lograrlo, seguiremos los siguientes pasos:
+* En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023. Para lograrlo, seguiremos los siguientes pasos:
   
-  ### Cálculo del promedio de victorias:
+### Cálculo del promedio de victorias:
   * Calcularemos el promedio de victorias de cada equipo en los tres periodos de nueve años mencionados.
 * Compararemos los valores máximos y mínimos para identificar los equipos con más y menos victorias, respectivamente.
 
@@ -21,13 +19,15 @@ html_document:
 ### Análisis de la relación estadísticas ofensivas-victorias:
 * Estudiaremos la relación entre las victorias y las estadísticas ofensivas de los equipos dos equipos. Utilizaremos un gráfico de dispersión para visualizar esta relación.
 
-```{r setup, include=FALSE}
+```{r setu, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(gridExtra)
 library(knitr)
 library(dplyr)
 library(readxl)
+
+NBA_G1 <- read_excel("~/Base de datos NBA/NBA G1.xlsx")
 
 df <- NBA_G1
 df <- df %>%
@@ -65,58 +65,62 @@ w_period_3_min <- tail(w_period_3, n = 1)
 
 #Dataframes de los equipos por períodos con todas las variables#
 
-df <- NBA_G1
-
 df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
 df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
 df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")
 
 ```
 
-### Análisis de la defensea de los equipos por períodos:
+### Análisis de la defensa de los equipos por períodos:
 * Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
 
-``````{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(gridExtra)
 library(knitr)
 library(dplyr)
 library(readxl)
+library(PerformanceAnalytics)
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W,DREB)
-Cor <- chart.Correlation(DF_perio1_DEFmax)
+Cor <- chart.Correlation(DF_period1_DEFmax)
 
 DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
-Cor <- chart.Correlation(DF_perio1_DEFmin)
+Cor <- chart.Correlation(DF_period1_DEFmin)
 
 ### Gráfico de dispersión 
 Grperiod1 <- ggplot(df_period1, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES")
 Grperiod1
 
  DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(W,DREB) 
-Cor <- chart.Correlation(DF_perio2_DEFmax)
+Cor <- chart.Correlation(DF_period2_DEFmax)
 
 DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W,DREB)
-Cor <- chart.Correlation(DF_perio2_DEFmin)
+Cor <- chart.Correlation(DF_period2_DEFmin)
 ###Gráficpo de dispersión
 Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_gray() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
 Grperiod2
 
 
  DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
-Cor <- chart.Correlation(DF_perio3_DEFmax)
+Cor <- chart.Correlation(DF_period3_DEFmax)
 
 DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period3_DEFmin)
 Grperiod3 <- ggplot(df_period3, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
-Grperiod3
+
+plot(Grperiod3)
+
 ```
-### Análisis de la defensea de los equipos por períodos:
+
 * El primer período se puede ver que tienen una correlación alta las victorias con los rebotes ofensivos,lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación inversamente alta, lo que quiere decir que los rebotes bajan las victorias aumentan.
 
 * En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con mas victorias como el que tiene menos victorias,lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias
 
 * En el tercer período el equipo con mas victorias tiene una relación alta con los rebotes, mientras que el equipo con menos victorias tiene una relación casi nula. Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes
 
+```{r echo=FALSE, paged.print=FALSE}
+plot(Grperiod3)
+```
 
 
