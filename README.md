@@ -7,3 +7,9 @@ Lo primero que hay que tomar en cuenta es que se va a designar por "Éxito", se 
 En el trabajo se le dará uso únicamente a herramientas descriptivas como pueden ser: Promedio, dispersión y correlación.
 ### Cómo les daremos uso? 
 La idea del proyecto es que en cada período de 9 años obtener el equipo con mejor promedio de victorias y el que tiene peor promedio de victorias (habiendo sido participes de las 9 temporadas), luego estos equipos se les aplicarán las herramientas previamente comentadas con diferentes variables de estadísticas tanto ofensivas como defensivas, después se compararán y se llevarán a cabo las conclusiones sobre las mismas.
+### Con que se trabajó?
+Lenguaje: R
+Estrucutra: R Markdown
+Paquetes: Tydiverse, PerformanceAnalytics
+Base de Datos: NBA G1.xslx
+### Conclusión
