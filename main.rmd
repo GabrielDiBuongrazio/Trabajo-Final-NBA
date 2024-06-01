@@ -1,9 +1,10 @@
 ---
-title: "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
-output: pdf_document
-pdf_document: default
-word_document: default
-df_print: paged
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+# "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
 ---
 ### Introducción
   
@@ -26,10 +27,9 @@ library(gridExtra)
 library(knitr)
 library(dplyr)
 library(readxl)
-
-NBA_G1 <- read_excel("~/Base de datos NBA/NBA G1.xlsx")
-
-df <- NBA_G1
+NBA_G1_1_ <- read_excel("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
+View(NBA_G1_1_)
+df <- NBA_G1_1_
 df <- df %>%
   mutate(season_by_period=case_when(
     SEASON %in% c('2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23') ~ "period 3",
@@ -71,8 +71,8 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 
 ```
 
-### Análisis de la defensa de los equipos por períodos:
-* Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
+## Análisis de la defensa de los equipos por períodos:
+###Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -114,9 +114,14 @@ plot(Grperiod3)
 ```
 
 * El primer período se puede ver que tienen una correlación alta las victorias con los rebotes ofensivos,lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación inversamente alta, lo que quiere decir que los rebotes bajan las victorias aumentan.
-
+las victorias
+```{r echo=FALSE, paged.print=FALSE}
+plot(Grperiod1)
+```
 * En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con mas victorias como el que tiene menos victorias,lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias
-
+```{r echo=FALSE, paged.print=FALSE}
+plot(Grperiod2)
+```
 * En el tercer período el equipo con mas victorias tiene una relación alta con los rebotes, mientras que el equipo con menos victorias tiene una relación casi nula. Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes
 
 ```{r echo=FALSE, paged.print=FALSE}
