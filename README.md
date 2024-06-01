@@ -8,8 +8,8 @@ En el trabajo se le dará uso únicamente a herramientas descriptivas como puede
 ### Cómo les daremos uso? 
 La idea del proyecto es que en cada período de 9 años obtener el equipo con mejor promedio de victorias y el que tiene peor promedio de victorias (habiendo sido participes de las 9 temporadas), luego estos equipos se les aplicarán las herramientas previamente comentadas con diferentes variables de estadísticas tanto ofensivas como defensivas, después se compararán y se llevarán a cabo las conclusiones sobre las mismas.
 ### Con que se trabajó?
--Lenguaje: R
--Estrucutra: R Markdown
--Paquetes: Tydiverse, PerformanceAnalytics
--Base de Datos: NBA G1.xslx
+*Lenguaje: R
+*Estrucutra: R Markdown
+*Paquetes: Tydiverse, PerformanceAnalytics
+*Base de Datos: NBA G1.xslx
 ### Conclusión
