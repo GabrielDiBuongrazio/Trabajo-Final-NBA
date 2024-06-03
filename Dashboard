@@ -1,8 +1,11 @@
 ---
 title: "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023"
-output: flexdashboard::flex_dashboard:
+output: 
+flexdashboard::flex_dashboard:
+  orientation: columns
+  vertical_layout: fill
 ---
-```{r setup, include=FALSE}
+```{r setup, include=false}
 library(flexdashboard)
 library(plotly)
 library(tidyverse)
@@ -14,9 +17,18 @@ df2<- df_period2
 df3<- df_period3
 ```
 
-Gráficos de equipos con mas y menos victorias en promedio por período
+Gráfico de barras por período en orden por períodos {data-orientation=rows}
 ================================================================================
-Row {data-height=334}
+###primer período
+```{r}
+GRAB1<- plot_ly(w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período")
+GRAB1
+```
+--------------------------------------------------------------------------------
+
+Gráficos de equipos con mas y menos victorias en promedio por período {data-orientation=columns}
+================================================================================
+Column {data-width=334}
 --------------------------------------------------------------------------------
 ### Primer Período 
 ```{r}
@@ -25,7 +37,7 @@ GRA1<- plot_ly(df_period1, x=~TEAM , y=~W , type="box")
 GRA1
 ```
 
-Row {data-height=333}
+Column {data-width=333}
 --------------------------------------------------------------------------------
 ```{r}
 ###Gráfico de caja y bigotes del segundo período
@@ -34,6 +46,7 @@ GRA2
 ```
 
 Row {data-height=333}
+Column {data-widht=333}
 --------------------------------------------------------------------------------
 ```{r}
 ###Gráfico de caja y bigotes del segundo período

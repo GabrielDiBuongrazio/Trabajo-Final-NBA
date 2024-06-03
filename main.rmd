@@ -5,6 +5,7 @@ output:
   word_document: default
 ---
 # "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
+
 ---
 ### Introducción
   
@@ -84,9 +85,13 @@ library(readxl)
 library(PerformanceAnalytics)
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period1_DEFmax)
+###Promedio de bloqueos de equipo con mas victorias de la primera temporada
+PromBLKmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(BLK) %>% summarise(mean(BLK))
 
 DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period1_DEFmin)
+###Promedio de bloqueos de equipo con menos de la primera temporada
+PromBLKmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(BLK) %>% summarise(mean(BLK))
 
 ### Gráfico de dispersión 
 Grperiod1 <- ggplot(df_period1, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES")
@@ -94,9 +99,14 @@ Grperiod1
 
  DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(W,DREB) 
 Cor <- chart.Correlation(DF_period2_DEFmax)
+###Promedio de bloqueos de equipo con mas victorias de la segunda temporada
+PromBLKmax2 <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(BLK) %>% summarise(mean(BLK))
 
 DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period2_DEFmin)
+###Promedio de bloqueos de equipo con menos victorias de la segunda temporada
+PromBLKmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(BLK) %>% summarise(mean(BLK))
+
 ###Gráficpo de dispersión
 Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
 Grperiod2
@@ -104,28 +114,46 @@ Grperiod2
 
  DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period3_DEFmax)
+###Promedio de bloqueos de equipo con mas victorias de la tercera temporada
+PromBLKmax3  <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(BLK) %>% summarise(mean(BLK))
 
 DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period3_DEFmin)
+PromBLKmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(BLK) %>% summarise(mean(BLK))
+
+###Gráfico de dispersión
 Grperiod3 <- ggplot(df_period3, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
 
 plot(Grperiod3)
 
 ```
 
+### Primer período
+
 * El primer período se puede ver que tienen una correlación alta las victorias con los rebotes ofensivos,lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación inversamente alta, lo que quiere decir que los rebotes bajan las victorias aumentan.
-las victorias
+las victorias. 
 ```{r echo=FALSE, paged.print=FALSE}
 plot(Grperiod1)
 ```
-* En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con mas victorias como el que tiene menos victorias,lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias
+
+*Por otro lado se sabe que eol equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto
+
+### Segundo Período
+
+* En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con mas victorias como el que tiene menos victorias,lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias.
 ```{r echo=FALSE, paged.print=FALSE}
 plot(Grperiod2)
 ```
-* En el tercer período el equipo con mas victorias tiene una relación alta con los rebotes, mientras que el equipo con menos victorias tiene una relación casi nula. Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes
+
+*Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
+
+### Tercer Período
+
+* En el tercer período el equipo con mas victorias tiene una relación alta con los rebotes, mientras que el equipo con menos victorias tiene una relación casi nula. Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
 
 ```{r echo=FALSE, paged.print=FALSE}
 plot(Grperiod3)
 ```
 
+*En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7
 
