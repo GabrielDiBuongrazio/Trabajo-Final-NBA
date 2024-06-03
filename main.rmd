@@ -72,7 +72,7 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 ```
 
 ## Análisis de la defensa de los equipos por períodos:
-###Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
+Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -98,7 +98,7 @@ Cor <- chart.Correlation(DF_period2_DEFmax)
 DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W,DREB)
 Cor <- chart.Correlation(DF_period2_DEFmin)
 ###Gráficpo de dispersión
-Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_gray() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
+Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
 Grperiod2
 
 
