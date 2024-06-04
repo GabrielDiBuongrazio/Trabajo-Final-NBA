@@ -1,0 +1,128 @@
+---
+title: "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```{r Chunk_principal, include=FALSE}
+library(flexdashboard)
+library(plotly)
+library(tidyverse)
+library(DT)
+library(shiny)
+NBA_G1_1_<- read_csv("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gridExtra)
+library(knitr)
+library(dplyr)
+library(readxl)
+NBA_G1_1_ <- read_excel("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
+View(NBA_G1_1_)
+df <- NBA_G1_1_
+df <- df %>%
+  mutate(season_by_period=case_when(
+    SEASON %in% c('2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23') ~ "period 3",
+    SEASON %in% c('2005-06', '2006-07', '2007-08', '2008-09', '2009-10', '2010-11', '2011-12', '2012-13', '2013-14') ~ "period 2",
+    SEASON %in% c('1996-97', '1997-98', '1998-99', '1999-00', '2000-01', '2001-02', '2002-03', '2003-04', '2004-05') ~ "period 1",
+    TRUE ~ "other"
+  ))
+
+
+team_by_period_w_prom <- df %>% group_by(TEAM, season_by_period) %>% summarise(w_prom = mean(W))
+
+w_period_1 <- filter(team_by_period_w_prom, season_by_period == 'period 1')
+
+w_period_1 <- w_period_1[order(w_period_1$w_prom, decreasing = TRUE),]
+
+
+w_period_2 <- filter(team_by_period_w_prom, season_by_period == 'period 2')
+
+w_period_2 <- w_period_2[order(w_period_2$w_prom, decreasing = TRUE),]
+
+
+w_period_3 <- filter(team_by_period_w_prom, season_by_period == 'period 3')
+
+w_period_3 <- w_period_3[order(w_period_3$w_prom, decreasing = TRUE),]
+#Dataframes de los equipos por períodos con todas las variables#
+
+df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
+df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
+df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")
+```
+Primer Período
+============================================================================
+Row {data-Height=600} 
+-----------------------------------------------------------------------
+
+### Primer Período (Gráfico de barras)
+
+```{r,echo=FALSE}
+#Gráfico de barras de promedio de victorias de los equipos
+GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período", mode= "markers",size= 10) %>% layout(title = "Media de victorias", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAB1
+```
+
+Row {data-Height=400}
+-----------------------------------------------------------------------
+
+### Primer Período (Gráfico de caja y bigotes)
+
+```{r,echo=FALSE}
+#Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
+GRAC1<- plot_ly(data=df_period1,x=~TEAM, y=~W,name = "Primer Período", type = "box") %>% layout(title = "Victorias del Primer Período", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAC1
+```
+
+Segundo Período
+============================================================================
+Row {data-Height=600} 
+-----------------------------------------------------------------------
+
+### Segundo Período (Gráfico de barras)
+
+```{r,echo=FALSE}
+#Gráfico de barras de promedio de victorias de los equipos
+GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", mode= "markers",size= 10) %>% layout(title = "Media de victorias", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAB2
+```
+
+Row {data-Height=400}
+-----------------------------------------------------------------------
+
+### Segundo Período (Gráfico de caja y bigotes)
+
+```{r,echo=FALSE}
+#Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
+GRAC2<- plot_ly(data=df_period2,x=~TEAM, y=~W,name = "Segundo Período",  type = "box") %>% layout(title = "Victorias del Segundo Período", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAC2
+```
+
+Tercer Período
+============================================================================
+Row {data-Height=600} 
+-----------------------------------------------------------------------
+
+### Tercer Período (Gráfico de barras)
+
+```{r,echo=FALSE}
+#Gráfico de barras de promedio de victorias de los equipos
+GRAB3<- plot_ly(data=w_period_3,x=~TEAM, y=~w_prom, name = "Tercer Período", mode= "markers",size= 10) %>% layout(title = "Media de victorias", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAB3
+```
+
+Row {data-Height=400}
+-----------------------------------------------------------------------
+
+### Segundo Período (Gráfico de caja y bigotes)
+
+```{r,echo=FALSE}
+#Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
+GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box") %>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Victorias"), yaxis = list(title = "Equipos"))
+GRAC3
+```
+  
