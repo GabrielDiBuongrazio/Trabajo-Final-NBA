@@ -15,6 +15,6 @@ La idea del proyecto es que en cada período de 9 años obtener el equipo con me
 
 *Paquetes: Tydiverse, PerformanceAnalytics
 
-*Base de Datos: NBA G1.xslx
+flex_dashboard
 
 ### Conclusión
