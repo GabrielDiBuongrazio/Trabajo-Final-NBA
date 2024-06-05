@@ -1,8 +1,14 @@
 ---
 output:
   pdf_document: default
-  html_document: default
+  html_document:
+    df_print: paged
   word_document: default
+---
+
+install.packages("tinytex")
+tinytex::install_tinytex()
+
 ---
  
 #### Trabajo Final de Coputación I
