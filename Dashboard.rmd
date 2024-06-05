@@ -3,7 +3,7 @@ title: "Análisis de la relación entre estadísticas de equipos de la NBA con m
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
-    vertical_layout: fill
+    vertical_layout: fill 
 ---
 ```{r Chunk_principal, include=FALSE}
 library(flexdashboard)
