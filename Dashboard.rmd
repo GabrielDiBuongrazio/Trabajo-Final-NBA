@@ -53,6 +53,7 @@ w_period_3 <- w_period_3[order(w_period_3$w_prom, decreasing = TRUE),]
 df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
 df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
 df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")
+w_period_3_ <- w_period_3 %>% filter(w_prom < 56)
 
 ```
 Portada
@@ -119,7 +120,7 @@ Row {data-Height=600}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB3<- plot_ly(data=w_period_3,x=~TEAM, y=~w_prom, name = "Tercer Período", mode = "markers", color = "green", size = 10) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
+GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", mode = "markers", color = "black", size = 10) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
 GRAB3
 ```
 
@@ -130,6 +131,6 @@ Row {data-Height=400}
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box",mode = "markers", color = "green", size = 10) %>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box",mode = "markers", color = "black", size = 10) %>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAC3 
 ```
