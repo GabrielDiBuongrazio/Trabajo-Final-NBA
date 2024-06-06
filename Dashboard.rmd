@@ -56,6 +56,10 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 w_period_3_ <- w_period_3 %>% filter(w_prom < 56)
 
 ```
+Portada
+============================================================================
+
+
 
 Primer Período
 ============================================================================
@@ -90,7 +94,7 @@ Row {data-Height=600}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", mode= "markers",size= 10, color ="green") %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", mode= "markers",size= 10, color ="blue") %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAB2
 ```
 

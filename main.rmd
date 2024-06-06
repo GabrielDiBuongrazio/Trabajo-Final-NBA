@@ -1,29 +1,31 @@
 ---
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
   word_document: default
 ---
  
 #### Trabajo Final de Computación I
 #### Nombres y apellidos: Gabriel Di Buongrazio, Andrés Moncada
+#### Universidad Central de Venezuela
+#### Tema:
 
-# "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante períodos de nueve años comprendido entre 1996 y 2023."
+# "Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante                    períodos de nueve años comprendido entre 1996 y 2023."
 
 ### Introducción
   
-  En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023. Para lograrlo, seguiremos los siguientes pasos:
+  En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023.
+
+### Cómo lo haremos?
+  Se encontrará el equipo con mayor promedio de victorias y el que tenga menor promedio de victorias (que haya participado en todas las temporadas), para digerir mejor la información y ver desde diferentes épocas se dividira en 3 períodos de 9 años. Luego se buscarán variables defensivas como pueden ser: bloqueos, rebotes y robos de balón, para ser analizadas sobre los equipos extraídos y ver si hay alguna respuesta viable sobre el por qué un equipo tiene mayor cantidad de victorias que otro. Lo mismo ocurriría con tres variables ofensivas extráidas de las temporadas 
   
-### Cálculo del promedio de victorias:
-  * Calcularemos el promedio de victorias de cada equipo en los tres periodos de nueve años mencionados.
-* Compararemos los valores máximos y mínimos para identificar los equipos con más y menos victorias, respectivamente.
+### Qué herramientas serán utilizadas?
+  Para el análisis de los datos se usaran las siguientes herramientas:
+* Correlación Lineal 
+* Media aritmética
+* Coeficiente de variación
 
-### Análisis de la relación defensa-victorias:
-* Investigaremos la relación entre las victorias y las estadísticas defensiva de los dos equipos. Representaremos esta relación mediante un gráfico de dispersión.
-
-### Análisis de la relación estadísticas ofensivas-victorias:
-* Estudiaremos la relación entre las victorias y las estadísticas ofensivas de los equipos dos equipos. Utilizaremos un gráfico de dispersión para visualizar esta relación.
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -79,7 +81,6 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 ```
 
 ## Análisis de la defensa de los equipos por períodos:
-Se tomaran en los tres períodos las estadísticas defensivas y victorias para compararse entre ellas para ver la relación que tienen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -162,7 +163,7 @@ Grperiod3
 
 ```
 
-### Primer período
+#### Primer período
 
 * El primer período se puede ver que tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relaciión entre los rebotes defensivos con las victorias
 
@@ -172,7 +173,7 @@ plot(Grperiod1)
 
 *Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto
 
-### Segundo Período
+#### Segundo Período
 
 * En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con más victorias (-0.013) como el que tiene menos victorias (0.059),lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias.
 
@@ -182,7 +183,7 @@ plot(Grperiod2)
 
 * Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3.
 
-### Tercer Período
+#### Tercer Período
 
 * En el tercer período el equipo con mas victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
 
