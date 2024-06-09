@@ -58,6 +58,12 @@ w_period_3_ <- w_period_3 %>% filter(w_prom < 56)
 ```
 Portada
 ============================================================================
+Integrantes: Gabriel Di Buongrazio, Andrés Moncada
+
+Computación I
+
+Entrega Final
+
 
 
 
@@ -70,7 +76,7 @@ Row {data-Height=600}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período", mode= "markers",size= 10, color ="red") %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período", marker = list(color = "red", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
 GRAB1
 ```
 
@@ -81,7 +87,7 @@ Row {data-Height=400}
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC1<- plot_ly(data=df_period1,x=~TEAM, y=~W,name = "Primer Período", type = "box", color= "red")%>% layout(title = "Victorias del Primer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAC1<- plot_ly(data=df_period1,x=~TEAM, y=~W,name ="TEAMS", type = "box", mode = "marker")%>% layout(title = "Victorias del Primer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAC1
 ```
 
@@ -94,9 +100,10 @@ Row {data-Height=600}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", mode= "markers",size= 10, color ="blue") %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", marker = list(color = "green", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAB2
 ```
+ marker = list(color = "red", size= 10))
 
 Row {data-Height=400}
 -----------------------------------------------------------------------
@@ -105,7 +112,7 @@ Row {data-Height=400}
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC2<- plot_ly(data=df_period2,x=~TEAM, y=~W,name = "Segundo Período",  type = "box", color = "blue") %>% layout(title = "Victorias del Segundo Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAC2<- plot_ly(data=df_period2,x=~TEAM, y=~W, type = "box") %>% layout(title = "Victorias del Segundo Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
 GRAC2
 ```
 
@@ -118,7 +125,7 @@ Row {data-Height=600}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", mode = "markers", color = "black", size = 10) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
+GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", marker = list(color = "black", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
 GRAB3
 ```
 
@@ -129,6 +136,6 @@ Row {data-Height=400}
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box",mode = "markers", color = "black", size = 10) %>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box")%>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAC3 
 ```

@@ -91,30 +91,31 @@ library(dplyr)
 library(readxl)
 library(PerformanceAnalytics)
 
+##PRIMER PERIODO
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>% select(W,DREB)
 
 corA1 <- chart.Correlation(DF_period1_DEFmax)
 ###Promedio de bloqueos de equipo con mas victorias de la primera temporada
 PromBLKmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(BLK) %>% summarise(mean(BLK))
-###Coeficiente de variación de robo de balón equipo con mas victorias
-DF_period1_STL_max <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>% select(STL)
-CV_period1_max <- DF_period1_STL_max %>% summarise(sd(STL)/mean(STL))
 
 DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 
 CorA2 <- chart.Correlation(DF_period1_DEFmin)
 ###Promedio de bloqueos de equipo con menos de la primera temporada
 PromBLKmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(BLK) %>% summarise(mean(BLK))
-###Coeficiente de variación de robos de balón de equipo con menos victorias
-DF_period1_STL_min <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>% select(STL)
-CV_period1_min <- DF_period1_STL_min %>% summarise(sd(STL)/mean(STL))
 
+###Cálculo de CV
+DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors") %>% select(STL, TEAM)
+CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES")
+Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0,method = "lm")
 Grperiod1
+### Gráfico de barras Coeficiente de Variación 1
+GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Período)")
+GrCVperiod1
 
-
+##SEGUNDO PERIODO
 DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>% select(W,DREB) 
 
 CorB1 <- chart.Correlation(DF_period2_DEFmax)
@@ -134,11 +135,18 @@ PromBLKmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(
 DF_period2_STL_min <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>% select(STL)
 CV_period2_min <- DF_period2_STL_min %>% summarise(sd(STL)/mean(STL))
 
+###Cálculo de CV
+DF_period2_STL <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves") %>% select(STL, TEAM)
+CV_period2 <- DF_period2_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
+
 ###Gráficpo de dispersión
-Grperiod2 <- ggplot(df_period2, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES")
+Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm") 
 Grperiod2
+### Gráfico de barras Coeficiente de Variación 2
+GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
+GrCVperiod2
 
-
+##TERCER PERIODO
 DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>% select(W,DREB)
 
 CorC1 <- chart.Correlation(DF_period1_DEFmax)
@@ -157,31 +165,47 @@ PromBLKmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(BLK) %>% 
 DF_period3_STL_min <- df_period3 %>% filter(TEAM== "Orlando Magic") %>% select(STL)
 CV_period3_min <- DF_period3_STL_min %>% summarise(sd(STL)/mean(STL))
 
+###Cálculo de CV
+DF_period3_STL <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic") %>% select(STL, TEAM)
+CV_period3 <- DF_period3_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
+
 ###Gráfico de dispersión
-Grperiod3 <- ggplot(df_period3, aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0,) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES")
+Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm") 
 Grperiod3
+### Gráfico de barras Coeficiente de Variación 2
+GrCVperiod3 <- ggplot(CV_period3,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
+GrCVperiod3
 
 ```
+
 
 #### Primer período
 
 * El primer período se puede ver que tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relaciión entre los rebotes defensivos con las victorias
 
-```{r echo=FALSE, paged.print=FALSE}
+```{r, echo=FALSE}
 plot(Grperiod1)
 ```
 
 *Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto
 
+```{r, echo=FALSE}
+plot(GrCVperiod1)
+```
+
 #### Segundo Período
 
 * En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con más victorias (-0.013) como el que tiene menos victorias (0.059),lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias.
 
-```{r echo=FALSE, paged.print=FALSE}
+```{r echo=FALSE,paged.print=FALSE}
 plot(Grperiod2)
 ```
 
-* Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3.
+* Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
+
+```{r, echo=FALSE}
+plot(GrCVperiod2)
+```
 
 #### Tercer Período
 
@@ -191,7 +215,11 @@ plot(Grperiod2)
 plot(Grperiod3)
 ```
 
-* En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7.
+* En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7
+
+```{r, echo=FALSE}
+plot(GrCVperiod3)
+```
 
 ## Conclusión
 
