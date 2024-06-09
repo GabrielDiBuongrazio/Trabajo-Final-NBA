@@ -22,8 +22,11 @@ output:
   
 ### Qué herramientas serán utilizadas?
   Para el análisis de los datos se usaran las siguientes herramientas:
+
 * Correlación Lineal 
+
 * Media aritmética
+
 * Coeficiente de variación
 
 
@@ -189,6 +192,8 @@ plot(Grperiod1)
 
 *Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto
 
+* Cuando hablamos de coeficiente de variación lo que queremos saber es en los 9 años de los que constan los períodos que tanto se distinguen entre ellos los robos de balón y se puede decir que en el primer período tanto el eqiuipo con mas victorias como el que tiene menos victorias son equipos con porcentaje de variabilidad baja lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos
+
 ```{r, echo=FALSE}
 plot(GrCVperiod1)
 ```
@@ -203,6 +208,8 @@ plot(Grperiod2)
 
 * Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
 
+* En este período al igual que en el anterior las variaciones de los equipois son bastante parecidas por lo que se puede decir que los equipos no toman en consideración estas variables para las otras temporadas.
+
 ```{r, echo=FALSE}
 plot(GrCVperiod2)
 ```
@@ -216,6 +223,8 @@ plot(Grperiod3)
 ```
 
 * En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7
+
+* En el tercer período al igual que en los anteriores dos el porcentaje de variabilidad de los datos es bastante parecido, por lo que se pueden pensar los mismo resultados que en los otros dos períodos.
 
 ```{r, echo=FALSE}
 plot(GrCVperiod3)
