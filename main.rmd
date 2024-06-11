@@ -1,8 +1,8 @@
 ---
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
   word_document: default
 ---
  
@@ -231,4 +231,13 @@ plot(GrCVperiod3)
 ```
 
 ## Conclusión
+
+#### Estadísticas defensivas:
+
+* Correlación Lienal: Con respecto a la correlación se puede decir que los rebotes defensivos en el primer y tercer período los equipos con una media de victorias mas alta tiene una relación directa moderada, es decir que mientras mas rebotes defensivos hacían por temporada mas victorias obtenían. Mientras que los equipos que tenían menos victorias no tenían casi relación una variable con la otra quiere decir que no tienen relevnacia los datos.
+
+* Media Aritmética: En ninguno de los tres períodos se ve una diferencia significativa en la media de bloqueos por temporada, salvo en el tercer período y sin embargo nos es una diferencia muy grande lo que quiere decir que según esta herramienta los bloqueos no son un valor que influya demasiado en el éxito de los equipos (tomando como éxito el mayor número de victorias por temporada).
+
+* Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no.
+
 
