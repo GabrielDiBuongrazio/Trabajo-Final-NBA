@@ -30,7 +30,7 @@ output:
 * Coeficiente de variación
 
 
-```{r s, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(gridExtra)
@@ -39,7 +39,7 @@ library(dplyr)
 library(readxl)
 library(PerformanceAnalytics)
 library(tinytex)
-NBA_G1_1_ <- read_excel("~/Base de datos NBA/NBA G1.xlsx")
+NBA_G1_1_ <- read_excel("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
 View(NBA_G1_1_)
 df <- NBA_G1_1_
 df <- df %>%
@@ -83,49 +83,6 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 
 ```
 
-## Análisis de la ofensiva de los equipos por periodos
-
-```{r Análisis de Variables Defensivas, echo=FALSE}
-
-#Primer Periodo
-
-#Correlación Entre Victorias y Rebotes Ofensivos
-#El mejor y el peor equipo de la temporada
-  rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
-mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
-print(mv_rebotes_ofensivos1)
-#Best1
-  rebotes_ofensivos1best <- rebotes_ofensivos1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, OREB)
-cor_rebotes_ofensivos1best <- cor(rebotes_ofensivos1best, method = "pearson")
-cor_rebotes_ofensivos1best <- round(cor_rebotes_ofensivos1best, digits = 2)
-#Worst1
-  rebotes_ofensivos1worst <- rebotes_ofensivos1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, OREB)
-cor_rebotes_ofensivos1worst <- cor(rebotes_ofensivos1worst, method = "pearson")
-cor_rebotes_ofensivos1worst <- round(cor_rebotes_ofensivos1worst, digits = 2)
-
-
-#Gráfico de Disperción de los Rebotes Ofensivos
-  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
-  Groperiod1
-
-  
-#Tiros de 3 Puntos Encestados
-
-
-#Segundo Periodo
-  
-#Rebotes Ofensivos
-  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
-  Groperiod2
-
-#Tercer Periodo
-  
-#Rebotes Ofensivos
-  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
-  Groperiod3
-```
-
-
 ## Análisis de la defensa de los equipos por períodos:
 
 ```{r setup, include=FALSE}
@@ -136,8 +93,6 @@ library(knitr)
 library(dplyr)
 library(readxl)
 library(PerformanceAnalytics)
-library(plotly)
-library(ggplot2)
 
 ##PRIMER PERIODO
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>% select(W,DREB)
@@ -157,12 +112,15 @@ DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golde
 CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm")
+Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0,method = "lm")
 Grperiod1
-
 ### Gráfico de barras Coeficiente de Variación 1
-GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Periodo)")
+GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Período)")
 GrCVperiod1
+### Gráfico de dispersión de robos de balón
+DF_period1_STL11 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors") %>% select(STL, TEAM, W)
+GrperiodCV11 <- ggplot(DF_period1_STL11,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV11
 
 ##SEGUNDO PERIODO
 DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>% select(W,DREB) 
@@ -194,6 +152,10 @@ Grperiod2
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
 GrCVperiod2
+### Gráficpo de dispersión de robos de balón
+DF_period2_STL22 <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves") %>% select(STL, TEAM, W)
+GrperiodCV22 <- ggplot(DF_period2_STL22,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV22
 
 ##TERCER PERIODO
 DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>% select(W,DREB)
@@ -224,9 +186,12 @@ Grperiod3
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod3 <- ggplot(CV_period3,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
 GrCVperiod3
+### Gráficpo de dispersión de robos de balón
+DF_period3_STL33 <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic") %>% select(STL, TEAM, W)
+GrperiodCV33 <- ggplot(DF_period3_STL33,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV33
 
 ```
-
 
 #### Primer período
 
@@ -240,8 +205,8 @@ plot(Grperiod1)
 
 * Cuando hablamos de coeficiente de variación lo que queremos saber es en los 9 años de los que constan los períodos que tanto se distinguen entre ellos los robos de balón y se puede decir que en el primer período tanto el eqiuipo con mas victorias como el que tiene menos victorias son equipos con porcentaje de variabilidad baja lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos
 
-```{r, echo=FALSE}
-plot(GrCVperiod1)
+```{r, fig.height=3.5, fig.width=12}
+grid.arrange(GrperiodCV11, GrCVperiod1, ncol = 2, nrow= 1)
 ```
 
 #### Segundo Período
@@ -256,34 +221,68 @@ plot(Grperiod2)
 
 * En este período al igual que en el anterior las variaciones de los equipois son bastante parecidas por lo que se puede decir que los equipos no toman en consideración estas variables para las otras temporadas.
 
-```{r, echo=FALSE}
-plot(GrCVperiod2)
+```{r, fig.height=3.5, fig.width=12}
+grid.arrange(GrperiodCV22, GrCVperiod2, ncol = 2, nrow= 1)
 ```
 
 #### Tercer Período
 
 * En el tercer período el equipo con mas victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
 
-```{r echo=FALSE, paged.print=FALSE}
-plot(Grperiod3)
+
+```{r echo=FALSE,paged.print=FALSE}
+plot(Grperiod1)
 ```
 
 * En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7
 
 * En el tercer período al igual que en los anteriores dos el porcentaje de variabilidad de los datos es bastante parecido, por lo que se pueden pensar los mismo resultados que en los otros dos períodos.
 
-```{r, echo=FALSE}
-plot(GrCVperiod3)
+```{r, fig.height=3.5, fig.width=10}
+grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
 ```
 
+## Análisis de la ofensiva de los equipos por periodos
+
+```{r Análisis de Variables ofensivas, echo=FALSE}
+#Primer Periodo
+#Correlación Entre Victorias y Rebotes Ofensivos
+#El mejor y el peor equipo de la temporada
+  rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mv_rebotes_ofensivos1)
+#Best1
+  rebotes_ofensivos1best <- rebotes_ofensivos1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, OREB)
+cor_rebotes_ofensivos1best <- cor(rebotes_ofensivos1best, method = "pearson")
+cor_rebotes_ofensivos1best <- round(cor_rebotes_ofensivos1best, digits = 2)
+#Worst1
+  rebotes_ofensivos1worst <- rebotes_ofensivos1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, OREB)
+cor_rebotes_ofensivos1worst <- cor(rebotes_ofensivos1worst, method = "pearson")
+cor_rebotes_ofensivos1worst <- round(cor_rebotes_ofensivos1worst, digits = 2)
+#Gráfico de Disperción de los Rebotes Ofensivos
+  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod1
+  
+#Tiros de 3 Puntos Encestados
+#Segundo Periodo
+  
+#Rebotes Ofensivos
+  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod2
+#Tercer Periodo
+  
+#Rebotes Ofensivos
+  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod3
+```
 ## Conclusión
 
 #### Estadísticas defensivas:
 
-* Correlación Lienal: Con respecto a la correlación se puede decir que los rebotes defensivos en el primer y tercer período los equipos con una media de victorias mas alta tiene una relación directa moderada, es decir que mientras mas rebotes defensivos hacían por temporada mas victorias obtenían. Mientras que los equipos que tenían menos victorias no tenían casi relación una variable con la otra quiere decir que no tienen relevnacia los datos.
+* Correlación Lineal: Con respecto a la correlación se puede decir que los rebotes defensivos en el primer y tercer período los equipos con una media de victorias mas alta tiene una relación directa moderada, es decir que mientras mas rebotes defensivos hacían por temporada mas victorias obtenían. Mientras que los equipos que tenían menos victorias no tenían casi relación una variable con la otra quiere decir que no tienen relevnacia los datos.
 
 * Media Aritmética: En ninguno de los tres períodos se ve una diferencia significativa en la media de bloqueos por temporada, salvo en el tercer período y sin embargo nos es una diferencia muy grande lo que quiere decir que según esta herramienta los bloqueos no son un valor que influya demasiado en el éxito de los equipos (tomando como éxito el mayor número de victorias por temporada).
 
-* Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no.
-
+* Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no
+ 
 
