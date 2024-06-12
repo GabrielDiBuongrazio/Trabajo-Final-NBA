@@ -1,8 +1,8 @@
 ---
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
   word_document: default
 ---
  
@@ -30,7 +30,7 @@ output:
 * Coeficiente de variación
 
 
-```{r, include=FALSE}
+```{r s, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(gridExtra)
@@ -39,7 +39,7 @@ library(dplyr)
 library(readxl)
 library(PerformanceAnalytics)
 library(tinytex)
-NBA_G1_1_ <- read_excel("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
+NBA_G1_1_ <- read_excel("~/Base de datos NBA/NBA G1.xlsx")
 View(NBA_G1_1_)
 df <- NBA_G1_1_
 df <- df %>%
@@ -83,6 +83,49 @@ df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golde
 
 ```
 
+## Análisis de la ofensiva de los equipos por periodos
+
+```{r Análisis de Variables Defensivas, echo=FALSE}
+
+#Primer Periodo
+
+#Correlación Entre Victorias y Rebotes Ofensivos
+#El mejor y el peor equipo de la temporada
+  rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mv_rebotes_ofensivos1)
+#Best1
+  rebotes_ofensivos1best <- rebotes_ofensivos1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, OREB)
+cor_rebotes_ofensivos1best <- cor(rebotes_ofensivos1best, method = "pearson")
+cor_rebotes_ofensivos1best <- round(cor_rebotes_ofensivos1best, digits = 2)
+#Worst1
+  rebotes_ofensivos1worst <- rebotes_ofensivos1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, OREB)
+cor_rebotes_ofensivos1worst <- cor(rebotes_ofensivos1worst, method = "pearson")
+cor_rebotes_ofensivos1worst <- round(cor_rebotes_ofensivos1worst, digits = 2)
+
+
+#Gráfico de Disperción de los Rebotes Ofensivos
+  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod1
+
+  
+#Tiros de 3 Puntos Encestados
+
+
+#Segundo Periodo
+  
+#Rebotes Ofensivos
+  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod2
+
+#Tercer Periodo
+  
+#Rebotes Ofensivos
+  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod3
+```
+
+
 ## Análisis de la defensa de los equipos por períodos:
 
 ```{r setup, include=FALSE}
@@ -93,6 +136,8 @@ library(knitr)
 library(dplyr)
 library(readxl)
 library(PerformanceAnalytics)
+library(plotly)
+library(ggplot2)
 
 ##PRIMER PERIODO
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>% select(W,DREB)
@@ -112,10 +157,11 @@ DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golde
 CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0,method = "lm")
+Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm")
 Grperiod1
+
 ### Gráfico de barras Coeficiente de Variación 1
-GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Período)")
+GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Periodo)")
 GrCVperiod1
 
 ##SEGUNDO PERIODO
