@@ -58,18 +58,31 @@ w_period_3_ <- w_period_3 %>% filter(w_prom < 56)
 ```
 Portada
 ============================================================================
+Column {data-heigth=300}
+-----------------------------------------------------------------------
 Integrantes: Gabriel Di Buongrazio, Andrés Moncada
 
 Computación I
 
 Entrega Final
 
+Universidad Central de Venezuela
+
+Tema:   Análisis de la relación entre estadísticas de equipos de la NBA con más y menos victorias durante                    períodos de nueve años comprendido entre 1996 y 2023.
+
+ 
+### Gráfico de dispersión 
+```{r, echo=FALSE}
+GráficoDF <- plot_ly(team_by_period_w_prom, x=~TEAM, y=~w_prom, name = "Victorias desde 1994 hasta 2023",color =~season_by_period, marker = list(size =10), type = "scatter", mode= "markers") 
+GráficoDF
+```
+
 
 
 
 Primer Período
 ============================================================================
-Row {data-Height=600} 
+Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Primer Período (Gráfico de barras)
@@ -80,20 +93,20 @@ GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período", ma
 GRAB1
 ```
 
-Row {data-Height=400}
+Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Primer Período (Gráfico de caja y bigotes)
 
 ```{r,echo=FALSE}
-#Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC1<- plot_ly(data=df_period1,x=~TEAM, y=~W,name ="TEAMS", type = "box", mode = "marker")%>% layout(title = "Victorias del Primer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
-GRAC1
+GRAC10 <- ggplot(df_period1,aes(x=TEAM, y=W, color=TEAM)) + geom_boxplot(size=3.0) + theme_classic() 
+ggplotly(GRAC10 = ggplot2::last_plot(), tooltip = "all", layerData = 1, OriginalData= TRUE, heigth=NULL, width = NULL)
+
 ```
 
 Segundo Período
 ============================================================================
-Row {data-Height=600} 
+Column {data-width=500} 
 -----------------------------------------------------------------------
 
 ### Segundo Período (Gráfico de barras)
@@ -105,20 +118,20 @@ GRAB2
 ```
  marker = list(color = "red", size= 10))
 
-Row {data-Height=400}
+Column {data-width=500}}
 -----------------------------------------------------------------------
 
 ### Segundo Período (Gráfico de caja y bigotes)
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC2<- plot_ly(data=df_period2,x=~TEAM, y=~W, type = "box") %>% layout(title = "Victorias del Segundo Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
-GRAC2
+GRAC20 <- ggplot(df_period2,aes(x=TEAM, y=W, color=TEAM)) + geom_boxplot(size=3.0) + theme_classic() 
+ggplotly(GRAC20 = ggplot2::last_plot(), tooltip = "all", layerData = 1, OriginalData= TRUE, heigth=NULL, width = NULL)
 ```
 
 Tercer Período
 ============================================================================
-Row {data-Height=600} 
+Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Tercer Período (Gráfico de barras)
@@ -129,13 +142,13 @@ GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", m
 GRAB3
 ```
 
-Row {data-Height=400}
+Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Tercer Período (Gráfico de caja y bigotes)
 
 ```{r,echo=FALSE}
 #Gráfico de caja y bigotes de equipos con mas y menos victorias en promedio
-GRAC3<- plot_ly(data=df_period3,x=~TEAM, y=~W,name = "Tercer Período",  type = "box")%>% layout(title = "Victorias del Tercer Período", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
-GRAC3 
+GRAC30 <- ggplot(df_period3,aes(x=TEAM, y=W, color=TEAM)) + geom_boxplot(size=3.0) + theme_classic() 
+ggplotly(GRAC30 = ggplot2::last_plot(), tooltip = "all", layerData = 1, OriginalData= TRUE, heigth=NULL, width = NULL)
 ```
