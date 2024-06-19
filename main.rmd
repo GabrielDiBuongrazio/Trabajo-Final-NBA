@@ -1,8 +1,8 @@
 ---
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
   word_document: default
 ---
  
@@ -119,7 +119,7 @@ GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(siz
 GrCVperiod1
 ### Gráfico de dispersión de robos de balón
 DF_period1_STL11 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors") %>% select(STL, TEAM, W)
-GrperiodCV11 <- ggplot(DF_period1_STL11,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV11 <- ggplot(DF_period1_STL11,aes(x=TEAM, y= STL, color=TEAM)) + geom_point(size=3.0) + theme_classic()
 GrperiodCV11
 
 ##SEGUNDO PERIODO
@@ -154,7 +154,7 @@ GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(siz
 GrCVperiod2
 ### Gráficpo de dispersión de robos de balón
 DF_period2_STL22 <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves") %>% select(STL, TEAM, W)
-GrperiodCV22 <- ggplot(DF_period2_STL22,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV22 <- ggplot(DF_period2_STL22,aes(x=TEAM, y=STL, color=TEAM)) + geom_point(size=3.0) + theme_classic()
 GrperiodCV22
 
 ##TERCER PERIODO
@@ -188,22 +188,22 @@ GrCVperiod3 <- ggplot(CV_period3,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(siz
 GrCVperiod3
 ### Gráficpo de dispersión de robos de balón
 DF_period3_STL33 <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic") %>% select(STL, TEAM, W)
-GrperiodCV33 <- ggplot(DF_period3_STL33,aes(x=STL, y= W, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV33 <- ggplot(DF_period3_STL33,aes(x=TEAM, y= STL, color=TEAM)) + geom_point(size=3.0) + theme_classic()
 GrperiodCV33
 
 ```
 
 #### Primer período
 
-* El primer período se puede ver que tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen a lo largo de las temporadas incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relaciión entre los rebotes defensivos con las victorias
+* El primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relación entre los rebotes defensivos con las victorias.
 
 ```{r, echo=FALSE}
 plot(Grperiod1)
 ```
 
-*Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto
+* Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.
 
-* Cuando hablamos de coeficiente de variación lo que queremos saber es en los 9 años de los que constan los períodos que tanto se distinguen entre ellos los robos de balón y se puede decir que en el primer período tanto el eqiuipo con mas victorias como el que tiene menos victorias son equipos con porcentaje de variabilidad baja lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos
+* Cuando hablamos de coeficiente de variación lo que queremos saber es en los 9 años de los que constan los períodos que tanto se distinguen entre ellos los robos de balón y se puede decir que en el primer período tanto el equipo con más victorias como el que tiene menos victorias son equipos con porcentaje de variabilidad baja lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos.
 
 ```{r, fig.height=3.5, fig.width=12}
 grid.arrange(GrperiodCV11, GrCVperiod1, ncol = 2, nrow= 1)
@@ -217,9 +217,9 @@ grid.arrange(GrperiodCV11, GrCVperiod1, ncol = 2, nrow= 1)
 plot(Grperiod2)
 ```
 
-* Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevanacia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
+* Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevancia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
 
-* En este período al igual que en el anterior las variaciones de los equipois son bastante parecidas por lo que se puede decir que los equipos no toman en consideración estas variables para las otras temporadas.
+* En este período al igual que en el anterior las variaciones de los equipos son bastante parecidas, por lo que se puede decir que los equipos no toman en consideración estas variables para las otras temporadas.
 
 ```{r, fig.height=3.5, fig.width=12}
 grid.arrange(GrperiodCV22, GrCVperiod2, ncol = 2, nrow= 1)
@@ -227,7 +227,7 @@ grid.arrange(GrperiodCV22, GrCVperiod2, ncol = 2, nrow= 1)
 
 #### Tercer Período
 
-* En el tercer período el equipo con mas victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
+* En el tercer período el equipo con más victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
 
 
 ```{r echo=FALSE,paged.print=FALSE}
@@ -330,6 +330,6 @@ cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
 
 * Media Aritmética: En ninguno de los tres períodos se ve una diferencia significativa en la media de bloqueos por temporada, salvo en el tercer período y sin embargo nos es una diferencia muy grande lo que quiere decir que según esta herramienta los bloqueos no son un valor que influya demasiado en el éxito de los equipos (tomando como éxito el mayor número de victorias por temporada).
 
-* Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no
+* Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no lo es y ahí se puede decir que la cantidad de robos de balón influye.
  
 
