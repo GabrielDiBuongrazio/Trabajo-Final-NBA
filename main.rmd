@@ -245,12 +245,17 @@ grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
 ## Análisis de la ofensiva de los equipos por periodos
 
 ```{r Análisis de Variables ofensivas, echo=FALSE}
+
 #Primer Periodo
+
 #Correlación Entre Victorias y Rebotes Ofensivos
-#El mejor y el peor equipo de la temporada
+#El mejor y el peor equipo de la temporada 1
   rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
-print(mv_rebotes_ofensivos1)
+print(mw_rebotes_ofensivos1)
+  rebotes_ofensivos1 <- df_period2 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mw_rebotes_ofensivos1)
 #Best1
   rebotes_ofensivos1best <- rebotes_ofensivos1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, OREB)
 cor_rebotes_ofensivos1best <- cor(rebotes_ofensivos1best, method = "pearson")
@@ -259,16 +264,58 @@ cor_rebotes_ofensivos1best <- round(cor_rebotes_ofensivos1best, digits = 2)
   rebotes_ofensivos1worst <- rebotes_ofensivos1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, OREB)
 cor_rebotes_ofensivos1worst <- cor(rebotes_ofensivos1worst, method = "pearson")
 cor_rebotes_ofensivos1worst <- round(cor_rebotes_ofensivos1worst, digits = 2)
+
+
+#El mejor y el peor equipo de la temporada 2
+rebotes_ofensivos2 <- df_period2 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos2 <-rebotes_ofensivos2 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mw_rebotes_ofensivos2)
+  rebotes_ofensivos2 <- df_period2 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos2 <-rebotes_ofensivos2 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mw_rebotes_ofensivos2)
+#Best1
+  rebotes_ofensivos2best <- rebotes_ofensivos2 %>% filter(TEAM=="San Antonio Spurs") %>% select (W, OREB)
+cor_rebotes_ofensivos2best <- cor(rebotes_ofensivos1best, method = "pearson")
+cor_rebotes_ofensivos2best <- round(cor_rebotes_ofensivos1best, digits = 2)
+#Worst1
+  rebotes_ofensivos2worst <- rebotes_ofensivos2 %>% filter(TEAM=="Minnesota Timberwolves") %>% select(W, OREB)
+cor_rebotes_ofensivos2worst <- cor(rebotes_ofensivos2worst, method = "pearson")
+cor_rebotes_ofensivos2worst <- round(cor_rebotes_ofensivos2worst, digits = 2)
+
+
+#El mejor y el peor equipo de la temporada 3
+
+rebotes_ofensivos3 <- df_period3 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos3 <-rebotes_ofensivos3 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mw_rebotes_ofensivos3)
+  rebotes_ofensivos3 <- df_period3 %>% select(W, OREB, TEAM)
+mw_rebotes_ofensivos3 <-rebotes_ofensivos3 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
+print(mw_rebotes_ofensivos3)
+#Best1
+  rebotes_ofensivos3best <- rebotes_ofensivos3 %>% filter(TEAM=="Golden State Warriors") %>% select (W, OREB)
+cor_rebotes_ofensivos3best <- cor(rebotes_ofensivos1best, method = "pearson")
+cor_rebotes_ofensivos3best <- round(cor_rebotes_ofensivos1best, digits = 2)
+#Worst1
+  rebotes_ofensivos3worst <- rebotes_ofensivos3 %>% filter(TEAM=="Orlando Magic") %>% select(W, OREB)
+cor_rebotes_ofensivos3worst <- cor(rebotes_ofensivos3worst, method = "pearson")
+cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
+
 #Gráfico de Disperción de los Rebotes Ofensivos
+
+#Primer periodo
   Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
   Groperiod1
+
   
 #Tiros de 3 Puntos Encestados
+
+
 #Segundo Periodo
   
 #Rebotes Ofensivos
   Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
   Groperiod2
+
 #Tercer Periodo
   
 #Rebotes Ofensivos
