@@ -112,7 +112,7 @@ DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golde
 CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0,method = "lm")
+Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0, method = "lm", formula = y ~ x)
 Grperiod1
 ### Gráfico de barras Coeficiente de Variación 1
 GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Período)")
@@ -147,7 +147,7 @@ DF_period2_STL <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnes
 CV_period2 <- DF_period2_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ###Gráficpo de dispersión
-Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm") 
+Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x) 
 Grperiod2
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
@@ -181,7 +181,7 @@ DF_period3_STL <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Or
 CV_period3 <- DF_period3_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ###Gráfico de dispersión
-Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm") 
+Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x) 
 Grperiod3
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod3 <- ggplot(CV_period3,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
@@ -303,7 +303,7 @@ cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
 #Gráfico de Disperción de los Rebotes Ofensivos
 
 #Primer periodo
-  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod1
 
   
@@ -313,16 +313,16 @@ cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
 #Segundo Periodo
   
 #Rebotes Ofensivos
-  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod2
 
 #Tercer Periodo
   
 #Rebotes Ofensivos
-  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm")
+  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod3
 ```
-## Conclusión
+## Conclusión 
 
 #### Estadísticas defensivas:
 
