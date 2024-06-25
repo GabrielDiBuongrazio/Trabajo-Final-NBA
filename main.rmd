@@ -112,7 +112,7 @@ DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golde
 CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ### Gráfico de dispersión 
-Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0, method = "lm", formula = y ~ x)
+Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0, method = "lm", formula = y ~ x, se = FALSE)
 Grperiod1
 ### Gráfico de barras Coeficiente de Variación 1
 GrCVperiod1 <- ggplot(CV_period1,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Primer Período)")
@@ -147,7 +147,7 @@ DF_period2_STL <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnes
 CV_period2 <- DF_period2_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ###Gráficpo de dispersión
-Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x) 
+Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x, se = FALSE) 
 Grperiod2
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
@@ -181,7 +181,7 @@ DF_period3_STL <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Or
 CV_period3 <- DF_period3_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
 
 ###Gráfico de dispersión
-Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x) 
+Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x, se = FALSE) 
 Grperiod3
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod3 <- ggplot(CV_period3,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
@@ -192,7 +192,7 @@ GrperiodCV33 <- ggplot(DF_period3_STL33,aes(x=TEAM, y= STL, color=TEAM)) + geom_
 GrperiodCV33
 
 ```
-
+ 
 #### Primer período
 
 * El primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relación entre los rebotes defensivos con las victorias.
@@ -228,7 +228,7 @@ grid.arrange(GrperiodCV22, GrCVperiod2, ncol = 2, nrow= 1)
 #### Tercer Período
 
 * En el tercer período el equipo con más victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
-
+ 
 
 ```{r echo=FALSE,paged.print=FALSE}
 plot(Grperiod1)
@@ -332,4 +332,12 @@ cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
 
 * Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no lo es y ahí se puede decir que la cantidad de robos de balón influye.
  
+## Bibliografía
+- https://plotly.com/r/line-and-scatter/
+- https://r-charts.com/es/ranking/grafico-barras-ggplot2/
+- https://rpubs.com/osoramirez/316691
+- https://www.rdocumentation.org/packages/plotly/versions/4.10.4/topics/ggplotly
+- https://r-charts.com/es/ranking/grafico-barras-ggplot2/#google_vignette
+- https://rpubs.com/Mentors_Ubiqum/geom_col_1
+- Materiales del profesor 
 
