@@ -55,6 +55,7 @@ df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San 
 df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")
 w_period_3_ <- w_period_3 %>% filter(w_prom < 56)
 
+df010 <- team_by_period_w_prom %>% filter(w_prom < 56 | w_prom > 56)
 ```
 Portada
 ============================================================================
@@ -73,12 +74,9 @@ Tema:   Análisis de la relación entre estadísticas de equipos de la NBA con m
  
 ### Gráfico de dispersón de victorias
 ```{r, echo=FALSE}
-GráficoDF <- plot_ly(team_by_period_w_prom, x=~TEAM, y=~w_prom,color =~season_by_period, marker = list(size =10), type = "scatter", mode= "markers") %>% layout(title = "Victorias desde 1994 hasta 2023", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias en promedio"))
+GráficoDF <- plot_ly(df010, x=~TEAM, y=~w_prom,color =~season_by_period, marker = list(size =10), type = "scatter", mode= "lines+markers") %>% layout(title = "Victorias desde 1994 hasta 2023", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias en promedio"))
 GráficoDF
 ```
-
-
-
 
 Primer Período
 ============================================================================
@@ -89,7 +87,7 @@ Column {data-width=500}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y=~w_prom, name = "Primer Período", marker = list(color = "red", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
+GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y= ~w_prom, name = "Primer Período", marker = list(color = "pink", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
 GRAB1
 ```
 
@@ -113,7 +111,7 @@ Column {data-width=500}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", marker = list(color = "green", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
+GRAB2<- plot_ly(data=w_period_2,x=~TEAM, y=~w_prom, name = "Segundo Período", marker = list(color = "lightgreen", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias"))
 GRAB2
 ```
  marker = list(color = "red", size= 10))
@@ -138,7 +136,7 @@ Column {data-width=500}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", marker = list(color = "blue", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
+GRAB3<- plot_ly(data=w_period_3_,x=~TEAM, y=~w_prom, name = "Tercer Período", marker = list(color = "skyblue", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos "), yaxis = list(title = "Victorias"))
 GRAB3
 ```
 
