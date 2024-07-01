@@ -244,7 +244,7 @@ grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
 
 ## Análisis de la ofensiva de los equipos por periodos
 
-```{r Análisis de Variables ofensivas, echo=FALSE}
+```{r Dispersión entre victorias y rebotes ofensivos, echo=FALSE}
 
 #Primer Periodo
 
@@ -253,7 +253,7 @@ grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
   rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
 print(mw_rebotes_ofensivos1)
-  rebotes_ofensivos1 <- df_period2 %>% select(W, OREB, TEAM)
+  rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
 print(mw_rebotes_ofensivos1)
 #Best1
@@ -275,8 +275,8 @@ mw_rebotes_ofensivos2 <-rebotes_ofensivos2 %>% group_by(TEAM) %>% summarise(prom
 print(mw_rebotes_ofensivos2)
 #Best1
   rebotes_ofensivos2best <- rebotes_ofensivos2 %>% filter(TEAM=="San Antonio Spurs") %>% select (W, OREB)
-cor_rebotes_ofensivos2best <- cor(rebotes_ofensivos1best, method = "pearson")
-cor_rebotes_ofensivos2best <- round(cor_rebotes_ofensivos1best, digits = 2)
+cor_rebotes_ofensivos2best <- cor(rebotes_ofensivos2best, method = "pearson")
+cor_rebotes_ofensivos2best <- round(cor_rebotes_ofensivos2best, digits = 2)
 #Worst1
   rebotes_ofensivos2worst <- rebotes_ofensivos2 %>% filter(TEAM=="Minnesota Timberwolves") %>% select(W, OREB)
 cor_rebotes_ofensivos2worst <- cor(rebotes_ofensivos2worst, method = "pearson")
@@ -293,7 +293,7 @@ mw_rebotes_ofensivos3 <-rebotes_ofensivos3 %>% group_by(TEAM) %>% summarise(prom
 print(mw_rebotes_ofensivos3)
 #Best1
   rebotes_ofensivos3best <- rebotes_ofensivos3 %>% filter(TEAM=="Golden State Warriors") %>% select (W, OREB)
-cor_rebotes_ofensivos3best <- cor(rebotes_ofensivos1best, method = "pearson")
+cor_rebotes_ofensivos3best <- cor(rebotes_ofensivos3best, method = "pearson")
 cor_rebotes_ofensivos3best <- round(cor_rebotes_ofensivos1best, digits = 2)
 #Worst1
   rebotes_ofensivos3worst <- rebotes_ofensivos3 %>% filter(TEAM=="Orlando Magic") %>% select(W, OREB)
@@ -305,23 +305,86 @@ cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
 #Primer periodo
   Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod1
-
   
-#Tiros de 3 Puntos Encestados
-
-
-#Segundo Periodo
-  
-#Rebotes Ofensivos
-  Groperiod2 <- ggplot(df_period2, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+#Segundo periodo
+Groperiod2 <- ggplot(df_period2,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod2
-
-#Tercer Periodo
   
-#Rebotes Ofensivos
-  Groperiod3 <- ggplot(df_period3, aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+#Tercer periodo
+Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
   Groperiod3
+
+
+
 ```
+
+```{r}
+#Correlación entre victorias y puntos de 3 intentados 3PA
+
+#El mejor y peor equipo de la temporada 1
+df_3PA1 <- df_period1 %>% select(W, "3PA", TEAM)
+#Best1
+df_3PAbest1 <- df_3PA1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, "3PA")
+cor_df_3PAbest1<- cor(df_3PAbest1, method = "pearson")
+cor_df_3PAbest1<- round(cor_df_3PAbest1, digits = 2)
+#Worst1
+df_3PAworst1 <-  df_3PA1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, "3PA")
+cor_df_3PAworst1 <- cor(df_3PAworst1, method = "pearson")
+cor_df_3PAworst1 <- round(cor_df_3PAworst1, digits = 2)
+
+
+#El mejor y peor equipo de la temporada 2
+df_3PA2 <- df_period2 %>% select(W, "3PA", TEAM)
+#Best1
+df_3PAbest2 <- df_3PA2 %>% filter(TEAM=="San Antonio Spurs") %>% select (W, "3PA")
+cor_df_3PAbest2<- cor(df_3PAbest2, method = "pearson")
+cor_df_3PAbest2<- round(cor_df_3PAbest2, digits = 2)
+#Worst1
+df_3PAworst2 <-  df_3PA2 %>% filter(TEAM=="Minnesota Timberwolves") %>% select(W, "3PA")
+cor_df_3PAworst2 <- cor(df_3PAworst2, method = "pearson")
+cor_df_3PAworst2 <- round(cor_df_3PAworst2, digits = 2)
+
+
+#El mejor y peor equipo de la temporada 3
+df_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
+#Best1
+df_3PAbest3 <- df_3PA3 %>% filter(TEAM=="Golden State Warriors") %>% select (W, "3PA")
+cor_df_3PAbest3<- cor(df_3PAbest3, method = "pearson")
+cor_df_3PAbest3<- round(cor_df_3PAbest3, digits = 2)
+#Worst1
+df_3PAworst3 <-  df_3PA3 %>% filter(TEAM=="Orlando Magic") %>% select(W, "3PA")
+cor_df_3PAworst3 <- cor(df_3PAworst3, method = "pearson")
+cor_df_3PAworst3 <- round(cor_df_3PAworst2, digits = 2)
+
+#Gráfico de Disperción de los Puntos de 3 intentados
+
+#Haciendo dataframes y cambiando nombres para poder graficar
+df_period3 <- df_period3[order(df_period3$TEAM, decreasing = TRUE),]
+  df_period1_3PA1 <- df_period1 %>% select(W, "3PA", TEAM)
+colnames(df_period1_3PA1) <- c("W", "t3PA", "TEAM")
+  df_period2_3PA2 <- df_period2 %>% select(W, "3PA", TEAM)
+colnames(df_period2_3PA2) <- c("W", "t3PA", "TEAM")
+  df_period3_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
+colnames(df_period3_3PA3) <- c("W", "t3PA", "TEAM")
+
+#Primer periodo
+Gr_3PAperiod1 <- ggplot(df_period1_3PA1,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (primer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod1
+  
+#Segundo periodo
+Gr_3PAperiod2 <- ggplot(df_period2_3PA2,aes(x=W, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (segundo periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod2
+  
+#Tercer periodo
+
+Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (tercer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod3
+
+
+
+```
+
+
 ## Conclusión 
 
 #### Estadísticas defensivas:
