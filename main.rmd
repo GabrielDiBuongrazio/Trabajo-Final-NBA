@@ -338,7 +338,7 @@ Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=
 
 ```
 
-```{r Correlación entre victorias y tiros de 3 realizados}
+```{r Correlación entre victorias y tiros de 3 realizados (3PA)}
 #Correlación entre victorias y puntos de 3 intentados 3PA
 #El mejor y peor equipo de la temporada 1
 df_3PA1 <- df_period1 %>% select(W, "3PA", TEAM)
@@ -370,6 +370,7 @@ cor_df_3PAbest3<- round(cor_df_3PAbest3, digits = 2)
 df_3PAworst3 <-  df_3PA3 %>% filter(TEAM=="Orlando Magic") %>% select(W, "3PA")
 cor_df_3PAworst3 <- cor(df_3PAworst3, method = "pearson")
 cor_df_3PAworst3 <- round(cor_df_3PAworst2, digits = 2)
+
 #Gráfico de Disperción de los Puntos de 3 intentados
 #Haciendo dataframes y cambiando nombres para poder graficar
 df_period3 <- df_period3[order(df_period3$TEAM, decreasing = TRUE),]
@@ -379,19 +380,43 @@ colnames(df_period1_3PA1) <- c("W", "t3PA", "TEAM")
 colnames(df_period2_3PA2) <- c("W", "t3PA", "TEAM")
   df_period3_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
 colnames(df_period3_3PA3) <- c("W", "t3PA", "TEAM")
-#Primer periodo
+
+#PRIMER PERIODO
 Gr_3PAperiod1 <- ggplot(df_period1_3PA1,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (primer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod1
   
-#Segundo periodo
+#SEGUNDO PERIODO
 Gr_3PAperiod2 <- ggplot(df_period2_3PA2,aes(x=W, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (segundo periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod2
   
-#Tercer periodo
+#TERCER PERIODO
 Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (tercer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod3
+
 ```
 
+```{r Cálculo del CV de los puntos de 3 intentados}
+
+#Calculo del CV de los puntos de 3 intentados
+
+##PRIMER PERIODO
+###Cálculo de CV
+DF_period1_3PA <- df_period1_3PA1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors")
+CV_period1_3PA <-  df_period1_3PA1 %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
+
+view(CV_period1_3PA)
+
+##SEGUNDO PERIODO
+#Cálculo de CV
+DF_period2_3PA <- df_period2_3PA2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
+CV_period2_3PA <- DF_period2_3PA  %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
+
+##TERCER PERIODO
+###Cálculo de CV
+DF_period3_3PA <- df_period3_3PA3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic")
+CV_period3_3PA <- DF_period3_3PA %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
+
+```
 
 ```{r Promedio del Número de Tiros Libres, echo=FALSE}
 ###PRIMERA TEMPORADA
