@@ -196,34 +196,7 @@ GrperiodCV33
 #### Primer período
 
 * El primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relación entre los rebotes defensivos con las victorias.
-```{r análisis de las variables con mayor desvicación}
-#Sacar media y desviación típica
-desviacion <- df %>% summarise_all(sd)
-media <- df %>% summarise_all(mean)
 
-#Hacer data frame para sacar el CV de todas las variables
-desviacion2<-desviacion%>%gather(key="variable",value="sd") 
-media2 <-media%>%gather(key="variable",value="mean")
-#ordenamos
-desviacion2<-desviacion2[order(desviacion2$variable),]
-desviaciones<-desviacion2 %>% select(sd)
-media2 <- media2[order(media2$variable),]
-medias <- media2 %>% select(mean)
-
-
-
-#Calculamos el cv de todas las varibales
-sd_y_mean <- cbind.data.frame(desviacion2,media2)
-cv_variables_in <- desviaciones/medias
-colnames(cv_variables_in) <- c("cv")
-cv_variables_in <- round(cv_variables_in, digits = 3)
-#añadimos los nombres de las variables
-
-variable_name <- media2%>%select(variable)
-cv_variables <- cbind.data.frame(variable_name, cv_variables_in)
-cv_variables_ordered <- cv_variables[order(cv_variables$cv, decreasing = TRUE),]
- 
-```
 
 ```{análisis de variables ofensivas, echo=FALSE}
 plot(Grperiod1)
@@ -272,7 +245,36 @@ grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
 
 ## Análisis de la ofensiva de los equipos por periodos
 
-```{r Dispersión entre victorias y rebotes ofensivos, echo=FALSE}
+```{r análisis de las variables con mayor desvicación}
+#Sacar media y desviación típica
+desviacion <- df %>% summarise_all(sd)
+media <- df %>% summarise_all(mean)
+
+#Hacer data frame para sacar el CV de todas las variables
+desviacion2<-desviacion%>%gather(key="variable",value="sd") 
+media2 <-media%>%gather(key="variable",value="mean")
+#ordenamos
+desviacion2<-desviacion2[order(desviacion2$variable),]
+desviaciones<-desviacion2 %>% select(sd)
+media2 <- media2[order(media2$variable),]
+medias <- media2 %>% select(mean)
+
+
+
+#Calculamos el cv de todas las varibales
+sd_y_mean <- cbind.data.frame(desviacion2,media2)
+cv_variables_in <- desviaciones/medias
+colnames(cv_variables_in) <- c("cv")
+cv_variables_in <- round(cv_variables_in, digits = 3)
+#añadimos los nombres de las variables
+
+variable_name <- media2%>%select(variable)
+cv_variables <- cbind.data.frame(variable_name, cv_variables_in)
+cv_variables_ordered <- cv_variables[order(cv_variables$cv, decreasing = TRUE),]
+view(cv_variables)
+```
+
+```{r Correlación entre victorias y rebotes ofensivos, echo=FALSE}
 #Primer Periodo
 #Correlación Entre Victorias y Rebotes Ofensivos
 #El mejor y el peor equipo de la temporada 1
@@ -320,19 +322,23 @@ cor_rebotes_ofensivos3best <- round(cor_rebotes_ofensivos1best, digits = 2)
   rebotes_ofensivos3worst <- rebotes_ofensivos3 %>% filter(TEAM=="Orlando Magic") %>% select(W, OREB)
 cor_rebotes_ofensivos3worst <- cor(rebotes_ofensivos3worst, method = "pearson")
 cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
+
 #Gráfico de Disperción de los Rebotes Ofensivos
 #Primer periodo
-  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+  Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
   Groperiod1
   
 #Segundo periodo
-Groperiod2 <- ggplot(df_period2,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Groperiod2 <- ggplot(df_period2,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (segundo periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
   Groperiod2
   
 #Tercer periodo
-Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
   Groperiod3
 
+```
+
+```{r Correlación entre victorias y tiros de 3 realizados}
 #Correlación entre victorias y puntos de 3 intentados 3PA
 #El mejor y peor equipo de la temporada 1
 df_3PA1 <- df_period1 %>% select(W, "3PA", TEAM)
@@ -374,17 +380,45 @@ colnames(df_period2_3PA2) <- c("W", "t3PA", "TEAM")
   df_period3_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
 colnames(df_period3_3PA3) <- c("W", "t3PA", "TEAM")
 #Primer periodo
-Gr_3PAperiod1 <- ggplot(df_period1_3PA1,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (primer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod1 <- ggplot(df_period1_3PA1,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (primer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod1
   
 #Segundo periodo
-Gr_3PAperiod2 <- ggplot(df_period2_3PA2,aes(x=W, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (segundo periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod2 <- ggplot(df_period2_3PA2,aes(x=W, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (segundo periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod2
   
 #Tercer periodo
-Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (tercer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x)
+Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (tercer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod3
 ```
+
+
+```{r Promedio del Número de Tiros Libres, echo=FALSE}
+###PRIMERA TEMPORADA
+
+#Promedio de bloqueos de equipo con mas victorias de la primera temporada
+PromFTAmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(FTA) %>% summarise(mean(FTA))
+#Promedio de bloqueos de equipo con menos de la primera temporada
+PromFTAmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
+
+view(PromFTAmax1)
+view(PromFTAmin1)
+
+#SEGUNDA TEMPORADA
+
+#Promedio de bloqueos de equipo con mas victorias de la segunda temporada
+PromFTAmax2 <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(FTA) %>% summarise(mean(FTA))
+#Promedio de bloqueos de equipo con menos victorias de la segunda temporada
+PromFTAmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(FTA) %>% summarise(mean(FTA))
+
+#TERCERA TEMPORADA
+
+#Promedio de bloqueos de equipo con mas victorias de la tercera temporada
+PromFTAKmax3  <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
+###Promedio de bloqueos de equipo con menos victorias de la tercera temporada
+PromFTAmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(FTA) %>% summarise(mean(FTA))
+```
+
 
 ## Conclusión  
 
