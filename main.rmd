@@ -1,8 +1,8 @@
 ---
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
   word_document: default
 ---
  
@@ -41,8 +41,8 @@ library(PerformanceAnalytics)
 library(tinytex)
 NBA_G1_1_ <- read_excel("C:/Users/Luis/Downloads/NBA G1 (1).xlsx")
 View(NBA_G1_1_)
-df <- NBA_G1_1_
-df <- df %>%
+DF <- NBA_G1_1_
+df <- DF %>%
   mutate(season_by_period=case_when(
     SEASON %in% c('2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23') ~ "period 3",
     SEASON %in% c('2005-06', '2006-07', '2007-08', '2008-09', '2009-10', '2010-11', '2011-12', '2012-13', '2013-14') ~ "period 2",
@@ -80,12 +80,11 @@ w_period_3_min <- tail(w_period_3, n = 1)
 df_period1 <- df %>% filter(season_by_period=="period 1") %>% filter(TEAM=="Los Angeles Lakers"|TEAM=="Golden State Warriors")
 df_period2 <- df %>% filter(season_by_period=="period 2") %>% filter(TEAM=="San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
 df_period3<- df %>% filter(season_by_period=="period 3") %>% filter(TEAM=="Golden State Warriors"|TEAM=="Orlando Magic")
-
 ```
 
 ## Análisis de la defensa de los equipos por períodos:
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(gridExtra)
@@ -98,14 +97,13 @@ library(PerformanceAnalytics)
 DF_period1_DEFmax <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>% select(W,DREB)
 
 corA1 <- chart.Correlation(DF_period1_DEFmax)
-###Promedio de bloqueos de equipo con mas victorias de la primera temporada
-PromBLKmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(BLK) %>% summarise(mean(BLK))
+###Promedio de bloqueos de equipos de la primera temporada
+PromBLK1 <- df_period1 %>% group_by(Equipo = TEAM) %>% filter(TEAM== "Los Angeles Lakers"|TEAM== "Golden State Warriors") %>% select(BLK, TEAM) %>% summarise(promedio=mean(BLK))
+PROM1 <- knitr::kable(head(PromBLK1[, 1:2]), "simple")
 
 DF_period1_DEFmin <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(W,DREB)
 
 CorA2 <- chart.Correlation(DF_period1_DEFmin)
-###Promedio de bloqueos de equipo con menos de la primera temporada
-PromBLKmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(BLK) %>% summarise(mean(BLK))
 
 ###Cálculo de CV
 DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors") %>% select(STL, TEAM)
@@ -126,8 +124,11 @@ GrperiodCV11
 DF_period2_DEFmax <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>% select(W,DREB) 
 
 CorB1 <- chart.Correlation(DF_period2_DEFmax)
-###Promedio de bloqueos de equipo con mas victorias de la segunda temporada
-PromBLKmax2 <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(BLK) %>% summarise(mean(BLK))
+###Promedio de bloqueos de equipos de la segunda temporada
+PromBLK2 <- df_period2 %>% group_by(Equipo = TEAM) %>% filter(TEAM== "San Antonio Spurs"| TEAM== "Minnesota Timberwolves") %>% select(BLK, TEAM) %>% summarise(promedio=mean(BLK))
+PROM2 <- knitr::kable(head(PromBLK2[, 1:2]), "simple")
+
+
 ###Coeficiente de variación de robo de balón equipo con mas victorias
 DF_period2_STL_max <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>% select(STL)
 CV_period2_max <- DF_period2_STL_max %>% summarise(sd(STL)/mean(STL))
@@ -136,8 +137,6 @@ CV_period2_max <- DF_period2_STL_max %>% summarise(sd(STL)/mean(STL))
 DF_period2_DEFmin <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(W,DREB)
 
 CorB2 <- chart.Correlation(DF_period2_DEFmin)
-###Promedio de bloqueos de equipo con menos victorias de la segunda temporada
-PromBLKmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(BLK) %>% summarise(mean(BLK))
 ###Coeficiente de variación de robos de balón de equipo con menos victorias
 DF_period2_STL_min <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>% select(STL)
 CV_period2_min <- DF_period2_STL_min %>% summarise(sd(STL)/mean(STL))
@@ -152,6 +151,7 @@ Grperiod2
 ### Gráfico de barras Coeficiente de Variación 2
 GrCVperiod2 <- ggplot(CV_period2,aes(x=TEAM,y= CV, color = TEAM)) + geom_col(size=3.0)  + theme_classic() + labs(title="Coeficiente de Variación (Segundo Período)")
 GrCVperiod2
+
 ### Gráficpo de dispersión de robos de balón
 DF_period2_STL22 <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves") %>% select(STL, TEAM, W)
 GrperiodCV22 <- ggplot(DF_period2_STL22,aes(x=TEAM, y=STL, color=TEAM)) + geom_point(size=3.0) + theme_classic()
@@ -161,8 +161,9 @@ GrperiodCV22
 DF_period3_DEFmax <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>% select(W,DREB)
 
 CorC1 <- chart.Correlation(DF_period1_DEFmax)
-###Promedio de bloqueos de equipo con mas victorias de la tercera temporada
-PromBLKmax3  <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(BLK) %>% summarise(mean(BLK))
+###Promedio de bloqueos de equipos de la segunda temporada
+PromBLK3 <- df_period3 %>% group_by(Equipo = TEAM) %>% filter(TEAM== "Orlando Magic"| TEAM== "Golden State Warriors") %>% select(BLK, TEAM) %>% summarise(promedio=mean(BLK))
+PROM3 <- knitr::kable(head(PromBLK3[, 1:2]), "simple")
 ###Coeficiente de variación de robo de balón equipo con mas victorias
 DF_period3_STL_max <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>% select(STL)
 CV_period3_max <- DF_period3_STL_max %>% summarise(sd(STL)/mean(STL))
@@ -170,8 +171,6 @@ CV_period3_max <- DF_period3_STL_max %>% summarise(sd(STL)/mean(STL))
 DF_period3_DEFmin <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(W,DREB)
 
 CorC1 <- chart.Correlation(DF_period3_DEFmin)
-###Promedio de bloqueos de equipo con menos victorias de la tercera temporada
-PromBLKmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(BLK) %>% summarise(mean(BLK))
 ###Coeficiente de variación de robos de balón de equipo con menos victorias
 DF_period3_STL_min <- df_period3 %>% filter(TEAM== "Orlando Magic") %>% select(STL)
 CV_period3_min <- DF_period3_STL_min %>% summarise(sd(STL)/mean(STL))
@@ -198,16 +197,19 @@ GrperiodCV33
 * El primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relación entre los rebotes defensivos con las victorias.
 
 
-```{análisis de variables ofensivas, echo=FALSE}
+```{r echo=FALSE,paged.print=FALSE}
 plot(Grperiod1)
 ```
 
-* Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.
+* Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.knitr::kable(head(PromBLK1[, 1:2]), "simple")
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(PromBLK1[, 1:2]), "simple")
+```
 
 * Cuando hablamos de coeficiente de variación lo que queremos saber es en los 9 años de los que constan los períodos que tanto se distinguen entre ellos los robos de balón y se puede decir que en el primer período tanto el equipo con más victorias como el que tiene menos victorias son equipos con porcentaje de variabilidad baja lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos.
 
 ```{r, fig.height=3.5, fig.width=12}
-grid.arrange(GrperiodCV11, GrCVperiod1, ncol = 2, nrow= 1)
+grid.arrange(GrperiodCV11, ncol = 1, nrow= 1)
 ```
 
 #### Segundo Período
@@ -220,13 +222,17 @@ plot(Grperiod2)
 
 * Con respecto a la media de bloqueos por partido del segundo período podemos decir que no hay una relevancia significativa de una sobre la otra, ya que el equipo con más victorias tiene un promedio de 4.7, mientras que el equipo con menos victorias tiene un promedio de 4.3
 
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(PromBLK2[, 1:2]), "simple")
+```
+
 * En este período al igual que en el anterior las variaciones de los equipos son bastante parecidas, por lo que se puede decir que los equipos no toman en consideración estas variables para las otras temporadas.
 
 ```{r, fig.height=3.5, fig.width=12}
-grid.arrange(GrperiodCV22, GrCVperiod2, ncol = 2, nrow= 1)
+grid.arrange(GrperiodCV22, ncol = 1, nrow= 1)
 ```
 
-#### Tercer Período
+#### Tercer Período 
 
 * En el tercer período el equipo con más victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
  
@@ -237,10 +243,14 @@ plot(Grperiod1)
 
 * En el tercer período si se puede decir que hay una diferencia en el promedio de bloqueos por partido, que muestra que si hay beneficios en obtener mas bloqueos ya que el equipo con mas victorias en promedio tiene un aproximado de 5.6 bloqueos por partido, mientras que el equipo con menos victorias tiene un promedio de 4.7
 
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(PromBLK3[, 1:2]), "simple")
+```
+
 * En el tercer período al igual que en los anteriores dos el porcentaje de variabilidad de los datos es bastante parecido, por lo que se pueden pensar los mismo resultados que en los otros dos períodos.
 
 ```{r, fig.height=3.5, fig.width=10}
-grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
+grid.arrange(GrperiodCV33, ncol = 1, nrow= 1)
 ```
 
 ## Análisis de la ofensiva de los equipos por periodos
@@ -249,7 +259,6 @@ grid.arrange(GrperiodCV33, GrCVperiod3, ncol = 2, nrow= 1)
 #Sacar media y desviación típica
 desviacion <- df %>% summarise_all(sd)
 media <- df %>% summarise_all(mean)
-
 #Hacer data frame para sacar el CV de todas las variables
 desviacion2<-desviacion%>%gather(key="variable",value="sd") 
 media2 <-media%>%gather(key="variable",value="mean")
@@ -258,22 +267,17 @@ desviacion2<-desviacion2[order(desviacion2$variable),]
 desviaciones<-desviacion2 %>% select(sd)
 media2 <- media2[order(media2$variable),]
 medias <- media2 %>% select(mean)
-
-
-
 #Calculamos el cv de todas las varibales
 sd_y_mean <- cbind.data.frame(desviacion2,media2)
 cv_variables_in <- desviaciones/medias
 colnames(cv_variables_in) <- c("cv")
 cv_variables_in <- round(cv_variables_in, digits = 3)
 #añadimos los nombres de las variables
-
 variable_name <- media2%>%select(variable)
 cv_variables <- cbind.data.frame(variable_name, cv_variables_in)
 cv_variables_ordered <- cv_variables[order(cv_variables$cv, decreasing = TRUE),]
 view(cv_variables)
 ```
-
 ```{r Correlación entre victorias y rebotes ofensivos, echo=FALSE}
 #Primer Periodo
 #Correlación Entre Victorias y Rebotes Ofensivos
@@ -322,7 +326,6 @@ cor_rebotes_ofensivos3best <- round(cor_rebotes_ofensivos1best, digits = 2)
   rebotes_ofensivos3worst <- rebotes_ofensivos3 %>% filter(TEAM=="Orlando Magic") %>% select(W, OREB)
 cor_rebotes_ofensivos3worst <- cor(rebotes_ofensivos3worst, method = "pearson")
 cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
-
 #Gráfico de Disperción de los Rebotes Ofensivos
 #Primer periodo
   Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
@@ -335,7 +338,6 @@ Groperiod2 <- ggplot(df_period2,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=
 #Tercer periodo
 Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (tercer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
   Groperiod3
-
 ```
 
 ```{r Correlación entre victorias y tiros de 3 realizados (3PA)}
@@ -370,7 +372,6 @@ cor_df_3PAbest3<- round(cor_df_3PAbest3, digits = 2)
 df_3PAworst3 <-  df_3PA3 %>% filter(TEAM=="Orlando Magic") %>% select(W, "3PA")
 cor_df_3PAworst3 <- cor(df_3PAworst3, method = "pearson")
 cor_df_3PAworst3 <- round(cor_df_3PAworst2, digits = 2)
-
 #Gráfico de Disperción de los Puntos de 3 intentados
 #Haciendo dataframes y cambiando nombres para poder graficar
 df_period3 <- df_period3[order(df_period3$TEAM, decreasing = TRUE),]
@@ -380,7 +381,6 @@ colnames(df_period1_3PA1) <- c("W", "t3PA", "TEAM")
 colnames(df_period2_3PA2) <- c("W", "t3PA", "TEAM")
   df_period3_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
 colnames(df_period3_3PA3) <- c("W", "t3PA", "TEAM")
-
 #PRIMER PERIODO
 Gr_3PAperiod1 <- ggplot(df_period1_3PA1,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (primer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod1
@@ -392,58 +392,44 @@ Gr_3PAperiod2
 #TERCER PERIODO
 Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs 3PA (tercer periodo)", x= "WINS", y= "3PA") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
 Gr_3PAperiod3
-
 ```
 
 ```{r Cálculo del CV de los puntos de 3 intentados}
-
 #Calculo del CV de los puntos de 3 intentados
-
 ##PRIMER PERIODO
 ###Cálculo de CV
 DF_period1_3PA <- df_period1_3PA1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors")
 CV_period1_3PA <-  df_period1_3PA1 %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
-
 view(CV_period1_3PA)
-
 ##SEGUNDO PERIODO
 #Cálculo de CV
 DF_period2_3PA <- df_period2_3PA2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves")
 CV_period2_3PA <- DF_period2_3PA  %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
-
 ##TERCER PERIODO
 ###Cálculo de CV
 DF_period3_3PA <- df_period3_3PA3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic")
 CV_period3_3PA <- DF_period3_3PA %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
-
 ```
 
 ```{r Promedio del Número de Tiros Libres, echo=FALSE}
 ###PRIMERA TEMPORADA
-
 #Promedio de bloqueos de equipo con mas victorias de la primera temporada
 PromFTAmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(FTA) %>% summarise(mean(FTA))
 #Promedio de bloqueos de equipo con menos de la primera temporada
 PromFTAmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
-
 view(PromFTAmax1)
 view(PromFTAmin1)
-
 #SEGUNDA TEMPORADA
-
 #Promedio de bloqueos de equipo con mas victorias de la segunda temporada
 PromFTAmax2 <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(FTA) %>% summarise(mean(FTA))
 #Promedio de bloqueos de equipo con menos victorias de la segunda temporada
 PromFTAmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(FTA) %>% summarise(mean(FTA))
-
 #TERCERA TEMPORADA
-
 #Promedio de bloqueos de equipo con mas victorias de la tercera temporada
 PromFTAKmax3  <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
 ###Promedio de bloqueos de equipo con menos victorias de la tercera temporada
 PromFTAmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(FTA) %>% summarise(mean(FTA))
 ```
-
 
 ## Conclusión  
 
