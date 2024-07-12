@@ -78,7 +78,7 @@ GráficoDF <- plot_ly(df010, x=~TEAM, y=~w_prom,color =~season_by_period, marker
 GráficoDF
 ```
 
-Primer Período
+Primer Período 
 ============================================================================
 Column {data-width=500}
 -----------------------------------------------------------------------
