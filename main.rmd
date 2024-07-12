@@ -1,8 +1,8 @@
 ---
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
   word_document: default
 ---
 
@@ -585,11 +585,7 @@ knitr::kable(head(CV_period3_3PA[, 1:2]), "simple")
 
 #### Estadísticas ofensivas:
 
-<<<<<<< HEAD
--   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada periodo. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor desisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer periodo es baja, lo cual indica que quizás, una mayor taza de puntos hechos implica que amedida que se realizaban mas puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer periodo, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo periodo la correalación es inversa mientras que en el tercer periodo la correalación es moderada y directa. Con esto se puede definir que dependiendo de otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
-=======
 -   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada período. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor decisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer período es baja, lo cual indica que quizás, una mayor tasa de puntos hechos implica que a medida que se realizaban más puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer período, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo período la correlación es inversa mientras que en el tercer período la correalación es moderada y directa. Con esto se puede definir que dependiendo de  otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
->>>>>>> ae13221bae2f8ed60ada71aaa9075924b81ce17d
 
 -   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la media de los tiros libres ronda entre 20 y 25 puntos en promedio según los periodos en discución, lo cual no es mucha diferencia hablando en términos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables más representativas para la obtención de la victoria. Aunque cabe aclarar que, aunque a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer período y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
 
