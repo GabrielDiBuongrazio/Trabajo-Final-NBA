@@ -433,16 +433,16 @@ view(CV_period3_3PA)
 
 ```{r include=FALSE}
 DF_period1_3PA11 <- df_period1_3PA1
-GrperiodCV11 <- ggplot(DF_period1_3PA11,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
-GrperiodCV11
+GrperiodCV111 <- ggplot(DF_period1_3PA11,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Coeficiente de varianción de los tiros de 3 intentados", x= "TEAM", y= "3PA")
+GrperiodCV111
 
 DF_period2_3PA22 <- df_period2_3PA2
-GrperiodCV22 <- ggplot(DF_period2_3PA22,aes(x=TEAM, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
-GrperiodCV22
+GrperiodCV222 <- ggplot(DF_period2_3PA22,aes(x=TEAM, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()  + labs(title= "Coeficiente de varianción de los tiros de 3 intentados", x= "TEAM", y= "3PA")
+GrperiodCV222
 
 DF_period3_3PA33 <- df_period3_3PA3
-GrperiodCV33 <- ggplot(DF_period3_3PA33,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
-GrperiodCV33
+GrperiodCV333 <- ggplot(DF_period3_3PA33,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()  + labs(title= "Coeficiente de varianción de los tiros de 3 intentados", x= "TEAM", y= "3PA")
+GrperiodCV333
 ```
 
 ```{r Promedio del Número de TIROS LIBRES, include=FALSE}
@@ -504,6 +504,11 @@ knitr::kable(head(PromFTA1[, 1:2]), "simple")
 
 -   Con respecto al coeficiente de variación de los tiros de 3 realizados se puede decir que en el primer período. tanto el equipo con más victorias como el que tiene menos victorias, tienen un coeficiente de variación bajo lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos.
 
+```{r}
+grid.arrange(GrperiodCV111, ncol = 1, nrow= 1)
+```
+
+
 #### Segundo Período
 
 -   En el segundo período se puede ver que el equipo con mas victorias del período tienen una correlación baja negativa entre las victorias y los rebotes ofensivos (-0,23),lo cual quiere decir que para este equpo durante este periodo los rebotes ofensivos no ingfluyeron para la obtención de la victoria, de una forma similar se hace el análisis para el equipo con menos victorias, que al tener una correlación lineal negativa baja (-0,35), demuestra tambien que la cantidad de rebotes ofensivos no está, al menos no mucho, relacionada con las victorias
@@ -521,6 +526,11 @@ knitr::kable(head(PromFTA2[, 1:2]), "simple")
 
 -   Con respecto al coeficiente de variación de los tiros de 3 realizados se puede decir que en el primer período. tanto el equipo con más victorias como el que tiene menos victorias, tienen un coeficiente de variación bajo lo que quiere decir que no hay nigún valor que marque una diferencia en el éxito de los equipos.
 
+```{r}
+grid.arrange(GrperiodCV222, ncol = 1, nrow= 1)
+```
+
+
 #### Tercer periodo
 
 -   En el tercer período se puede observar que ver el equipo con mas victorias del período tienen una correlación moderada positiva entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que para este equpo durante este periodo los rebotes ofensivos ingfluyeron para la obtención de la victoria, de una forma similar se hace el análisis para el equipo con menos victorias, que al tener una correlación lineal moderada directa (0,4), demuestra tambien que la cantidad de rebotes ofensivos si influyeron en la obtención de la victoria
@@ -536,6 +546,11 @@ knitr::kable(head(PromFTA3[, 1:2]), "simple")
 ```
 
 -   En el tercer periodo coeficiente de variación de tiros de 3 realizados es similar para ambos equipos, tanto para el de mayor victorias del periodo tanto para el menor, con un coeficiente de variación del 15,85% y 18,5% respectivamente, lo cual sugiere que la variación de tiros de 3 realizados es baja, lo que significa cantidad de tiros de 3 realizados son muy cercanos a la media, independientemente del rendimiento del equipo.
+
+```{r}
+grid.arrange(GrperiodCV333, ncol = 1, nrow= 1)
+```
+
 
 ## Conclusión
 
