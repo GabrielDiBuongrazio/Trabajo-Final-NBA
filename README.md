@@ -7,7 +7,7 @@ Lo primero que hay que tomar en cuenta es que se va a designar por "Éxito", se 
 En el trabajo se le dará uso únicamente a herramientas descriptivas como pueden ser: Promedio, dispersión y correlación.
 ### Cómo les daremos uso? 
 La idea del proyecto es que en cada período de 9 años obtener el equipo con mejor promedio de victorias y el que tiene peor promedio de victorias (habiendo sido participes de las 9 temporadas), luego estos equipos se les aplicarán las herramientas previamente comentadas con diferentes variables de estadísticas tanto ofensivas como defensivas, después se compararán y se llevarán a cabo las conclusiones sobre las mismas.
-### Con que se trabajó?
+### Con qué se trabajó?
 
 *Lenguaje: R
 
@@ -18,3 +18,4 @@ La idea del proyecto es que en cada período de 9 años obtener el equipo con me
 flex_dashboard
 
 ### Conclusión
+Las variables trabajadas no presentaban una correlación por la cual poderse guiar para tomar alguna decisión ya que tanto en la variable ofensiva como defensiva, aunque pasen los años no tienen relación la mayoría tanto en rebotes defensivos como en rebotes defensicos con respecto a las victorias como para tomar una decisión. Con respecto al promedio de bloqueos en las variables defensivas son bastante regulares y parecidas durante las tres etapas, mientras que en las variables ofensivas se puede ver que con el pasar de los años el promedio de tiros libres baja. Del coeficiente de variación podemos decir que en los robos de balón no varía casi y ronda entre el 8% y el 11%, pero que a pesar de su constancia la cantidad de robos de balón si aumenta en el equipo con más victorias sin importar el período, por otro lado se puede ver que al calcular el coeficiente de variación de los tiros de tres si empiezan a ser un poco más variables los resultados dentrpo de sus partoidos de las temporadas y mas variables sobre todo los equipos con menos victorias.

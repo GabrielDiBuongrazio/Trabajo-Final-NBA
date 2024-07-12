@@ -18,13 +18,13 @@ output:
 
 ### Introducción
 
-En este informe, analizaremos si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023.
+En este informe, se analizará si existe una relación significativa entre las estadísticas de los equipos de la NBA con más victorias y aquellos con menos victorias durante períodos de nueve años comprendidos entre 1996 y 2023.
 
-### Cómo lo haremos?
+### ¿Cómo se hará?
 
 Se encontrará el equipo con mayor promedio de victorias y el que tenga menor promedio de victorias (que haya participado en todas las temporadas), para digerir mejor la información y ver desde diferentes épocas se dividira en 3 períodos de 9 años. Luego se buscarán variables defensivas como pueden ser: bloqueos, rebotes y robos de balón, para ser analizadas sobre los equipos extraídos y ver si hay alguna respuesta viable sobre el por qué un equipo tiene mayor cantidad de victorias que otro. Lo mismo ocurriría con tres variables ofensivas extráidas de las temporadas
 
-### Qué herramientas serán utilizadas?
+### ¿Qué herramientas serán utilizadas?
 
 Para el análisis de los datos se usaran las siguientes herramientas:
 
@@ -501,7 +501,7 @@ PromFTA3 <- PromFTA3[order(PromFTA3$promedio, decreasing = TRUE),]
 
 #### Primer período
 
--   En el primer período se puede ver que el equipo con más victorias del período tienen una correlación moderada entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que mientras mas rebotes recuperan, se incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación alta negativa (-0,73), lo que quiere decir que a mayor cantidad de rebotes ofensivos, hay menos victorias.
+-   En el primer período se puede ver que el equipo con más victorias del primer período tienen una correlación moderada entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que mientras mas rebotes recuperan, se incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación alta negativa (-0,73), lo que quiere decir que a mayor cantidad de rebotes ofensivos, hay menos victorias.
 
 ```{r echo=FALSE}
 plot(Groperiod1)
@@ -587,7 +587,7 @@ knitr::kable(head(CV_period3_3PA[, 1:2]), "simple")
 
 -   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada período. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor decisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer período es baja, lo cual indica que quizás, una mayor tasa de puntos hechos implica que a medida que se realizaban más puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer período, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo período la correlación es inversa mientras que en el tercer período la correalación es moderada y directa. Con esto se puede definir que dependiendo de  otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
 
--   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la media de los tiros libres ronda entre 20 y 25 puntos en promedio según los periodos en discución, lo cual no es mucha diferencia hablando en términos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables más representativas para la obtención de la victoria. Aunque cabe aclarar que, aunque a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer período y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
+-   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la diferencia entre los tiros libres  no es mucha hablando en términos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables más representativas para la obtención de la victoria. Aunque cabe aclarar que, a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer período y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
 
 -   Coeficiente de Variación: Al calcular los coeficientes de varianción de las variable de tiros de 3 intentadoslos correspondiente a los equipos de mayor y menor cantidad de victorias, se haya la particularidad de que los equipos con mayor victoria tienen un coeficiente menor a sus contrapartes, lo cual podría indicar una relación entre la disperción y la eficacia del equipo. Esto puede implicar  que a medida de que los tiros de 3 son menos dispersos, el total de intentos es mayor y una mayor cantidad de intentos podría signifcar entonces mas puntos de 3 anotados.
 
