@@ -197,7 +197,7 @@ GrperiodCV33
 * El primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada las victorias con los rebotes defensivos (0.54),lo cual quiere decir que mientras mas rebotes hacen incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación casi impredecible (0.13), lo que quiere decir que no hay relación entre los rebotes defensivos con las victorias.
 
 
-```{r echo=FALSE,paged.print=FALSE}
+```{r echo=FALSE, paged.print=FALSE}
 plot(Grperiod1)
 ```
 
@@ -255,7 +255,7 @@ grid.arrange(GrperiodCV33, ncol = 1, nrow= 1)
 
 ## Análisis de la ofensiva de los equipos por periodos
 
-```{r análisis de las variables con mayor desvicación}
+```{r análisis de las variables con mayor desvicación, include=FALSE}
 #Sacar media y desviación típica
 desviacion <- df %>% summarise_all(sd)
 media <- df %>% summarise_all(mean)
@@ -278,10 +278,12 @@ cv_variables <- cbind.data.frame(variable_name, cv_variables_in)
 cv_variables_ordered <- cv_variables[order(cv_variables$cv, decreasing = TRUE),]
 view(cv_variables)
 ```
-```{r Correlación entre victorias y rebotes ofensivos, echo=FALSE}
+
+```{r Correlación entre victorias y REBOTES OFENSIVOS, include=FALSE}
 #Primer Periodo
 #Correlación Entre Victorias y Rebotes Ofensivos
-#El mejor y el peor equipo de la temporada 1
+
+  #El mejor y el peor equipo de la temporada 1
   rebotes_ofensivos1 <- df_period1 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos1 <-rebotes_ofensivos1 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
 print(mw_rebotes_ofensivos1)
@@ -292,11 +294,14 @@ print(mw_rebotes_ofensivos1)
   rebotes_ofensivos1best <- rebotes_ofensivos1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, OREB)
 cor_rebotes_ofensivos1best <- cor(rebotes_ofensivos1best, method = "pearson")
 cor_rebotes_ofensivos1best <- round(cor_rebotes_ofensivos1best, digits = 2)
+view(cor_rebotes_ofensivos1best)
 #Worst1
   rebotes_ofensivos1worst <- rebotes_ofensivos1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, OREB)
 cor_rebotes_ofensivos1worst <- cor(rebotes_ofensivos1worst, method = "pearson")
 cor_rebotes_ofensivos1worst <- round(cor_rebotes_ofensivos1worst, digits = 2)
-#El mejor y el peor equipo de la temporada 2
+view(cor_rebotes_ofensivos1worst)
+
+  #El mejor y el peor equipo de la temporada 2
 rebotes_ofensivos2 <- df_period2 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos2 <-rebotes_ofensivos2 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
 print(mw_rebotes_ofensivos2)
@@ -307,11 +312,14 @@ print(mw_rebotes_ofensivos2)
   rebotes_ofensivos2best <- rebotes_ofensivos2 %>% filter(TEAM=="San Antonio Spurs") %>% select (W, OREB)
 cor_rebotes_ofensivos2best <- cor(rebotes_ofensivos2best, method = "pearson")
 cor_rebotes_ofensivos2best <- round(cor_rebotes_ofensivos2best, digits = 2)
+view(cor_rebotes_ofensivos2best)
 #Worst1
   rebotes_ofensivos2worst <- rebotes_ofensivos2 %>% filter(TEAM=="Minnesota Timberwolves") %>% select(W, OREB)
 cor_rebotes_ofensivos2worst <- cor(rebotes_ofensivos2worst, method = "pearson")
 cor_rebotes_ofensivos2worst <- round(cor_rebotes_ofensivos2worst, digits = 2)
-#El mejor y el peor equipo de la temporada 3
+view(cor_rebotes_ofensivos2worst)
+
+  #El mejor y el peor equipo de la temporada 3
 rebotes_ofensivos3 <- df_period3 %>% select(W, OREB, TEAM)
 mw_rebotes_ofensivos3 <-rebotes_ofensivos3 %>% group_by(TEAM) %>% summarise(promedio = mean(W))
 print(mw_rebotes_ofensivos3)
@@ -322,10 +330,12 @@ print(mw_rebotes_ofensivos3)
   rebotes_ofensivos3best <- rebotes_ofensivos3 %>% filter(TEAM=="Golden State Warriors") %>% select (W, OREB)
 cor_rebotes_ofensivos3best <- cor(rebotes_ofensivos3best, method = "pearson")
 cor_rebotes_ofensivos3best <- round(cor_rebotes_ofensivos1best, digits = 2)
+view(cor_rebotes_ofensivos3best)
 #Worst1
   rebotes_ofensivos3worst <- rebotes_ofensivos3 %>% filter(TEAM=="Orlando Magic") %>% select(W, OREB)
 cor_rebotes_ofensivos3worst <- cor(rebotes_ofensivos3worst, method = "pearson")
 cor_rebotes_ofensivos3worst <- round(cor_rebotes_ofensivos3worst, digits = 2)
+view(cor_rebotes_ofensivos3worst)
 #Gráfico de Disperción de los Rebotes Ofensivos
 #Primer periodo
   Groperiod1 <- ggplot(df_period1,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES OFENSIVOS (primer periodo)", x= "WINS", y= "REBOTES OFENSIVOS") +  geom_smooth(size=3.0,method = "lm", formula = y ~ x, se=F)
@@ -340,19 +350,22 @@ Groperiod3 <- ggplot(df_period3,aes(x=W, y=OREB, color=TEAM)) + geom_point(size=
   Groperiod3
 ```
 
-```{r Correlación entre victorias y tiros de 3 realizados (3PA)}
+```{r Correlación entre victorias y tiros de 3 realizados (3PA), include=FALSE}
 #Correlación entre victorias y puntos de 3 intentados 3PA
-#El mejor y peor equipo de la temporada 1
+#El mejor y peor equipo de la TEMPORADA 1
 df_3PA1 <- df_period1 %>% select(W, "3PA", TEAM)
 #Best1
 df_3PAbest1 <- df_3PA1 %>% filter(TEAM=="Los Angeles Lakers") %>% select (W, "3PA")
 cor_df_3PAbest1<- cor(df_3PAbest1, method = "pearson")
 cor_df_3PAbest1<- round(cor_df_3PAbest1, digits = 2)
+View(cor_df_3PAbest1)
 #Worst1
 df_3PAworst1 <-  df_3PA1 %>% filter(TEAM=="Golden State Warriors") %>% select(W, "3PA")
 cor_df_3PAworst1 <- cor(df_3PAworst1, method = "pearson")
 cor_df_3PAworst1 <- round(cor_df_3PAworst1, digits = 2)
-#El mejor y peor equipo de la temporada 2
+view(cor_df_3PAworst1)
+
+#El mejor y peor equipo de la TEMPORADA 2
 df_3PA2 <- df_period2 %>% select(W, "3PA", TEAM)
 #Best1
 df_3PAbest2 <- df_3PA2 %>% filter(TEAM=="San Antonio Spurs") %>% select (W, "3PA")
@@ -362,7 +375,8 @@ cor_df_3PAbest2<- round(cor_df_3PAbest2, digits = 2)
 df_3PAworst2 <-  df_3PA2 %>% filter(TEAM=="Minnesota Timberwolves") %>% select(W, "3PA")
 cor_df_3PAworst2 <- cor(df_3PAworst2, method = "pearson")
 cor_df_3PAworst2 <- round(cor_df_3PAworst2, digits = 2)
-#El mejor y peor equipo de la temporada 3
+
+#El mejor y peor equipo de la TEMPORADA 3
 df_3PA3 <- df_period3 %>% select(W, "3PA", TEAM)
 #Best1
 df_3PAbest3 <- df_3PA3 %>% filter(TEAM=="Golden State Warriors") %>% select (W, "3PA")
@@ -394,7 +408,7 @@ Gr_3PAperiod3 <- ggplot(df_period3_3PA3,aes(x=W, y=t3PA, color=TEAM)) + geom_poi
 Gr_3PAperiod3
 ```
 
-```{r Cálculo del CV de los puntos de 3 intentados}
+```{r Cálculo del CV de los TIROS DE 3 REALIZADOS, include=FALSE}
 #Calculo del CV de los puntos de 3 intentados
 ##PRIMER PERIODO
 ###Cálculo de CV
@@ -411,25 +425,50 @@ DF_period3_3PA <- df_period3_3PA3 %>% filter(TEAM== "Golden State Warriors"|TEAM
 CV_period3_3PA <- DF_period3_3PA %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/mean(t3PA))
 ```
 
-```{r Promedio del Número de Tiros Libres, echo=FALSE}
+```{r Promedio del Número de TIROS LIBRES, include=FALSE}
 ###PRIMERA TEMPORADA
-#Promedio de bloqueos de equipo con mas victorias de la primera temporada
+  #Promedio de bloqueos de equipo con mas victorias de la primera temporada
 PromFTAmax1 <- df_period1 %>% filter(TEAM== "Los Angeles Lakers") %>%select(FTA) %>% summarise(mean(FTA))
 #Promedio de bloqueos de equipo con menos de la primera temporada
 PromFTAmin1 <- df_period1 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
 view(PromFTAmax1)
 view(PromFTAmin1)
+#COMBINACIÓN 1
+PromFTA1 <- df_period1 %>% group_by(Equipo = TEAM) %>% filter(TEAM== "Los Angeles Lakers"| TEAM== "Golden State Warriors") %>% select(FTA, TEAM) %>% summarise(promedio=mean(FTA))
+view(PromFTA1)
+PromFTA1 <- PromFTA1[order(PromFTA1$promedio, decreasing = TRUE),]
+
+
 #SEGUNDA TEMPORADA
-#Promedio de bloqueos de equipo con mas victorias de la segunda temporada
+  #Promedio de bloqueos de equipo con mas victorias de la segunda temporada
 PromFTAmax2 <- df_period2 %>% filter(TEAM== "San Antonio Spurs") %>%select(FTA) %>% summarise(mean(FTA))
 #Promedio de bloqueos de equipo con menos victorias de la segunda temporada
 PromFTAmin2 <- df_period2 %>% filter(TEAM== "Minnesota Timberwolves") %>%select(FTA) %>% summarise(mean(FTA))
+
+
+
 #TERCERA TEMPORADA
-#Promedio de bloqueos de equipo con mas victorias de la tercera temporada
+  #Promedio de bloqueos de equipo con mas victorias de la tercera temporada
 PromFTAKmax3  <- df_period3 %>% filter(TEAM== "Golden State Warriors") %>%select(FTA) %>% summarise(mean(FTA))
 ###Promedio de bloqueos de equipo con menos victorias de la tercera temporada
 PromFTAmin3 <- df_period3 %>% filter(TEAM== "Orlando Magic") %>%select(FTA) %>% summarise(mean(FTA))
 ```
+
+#### Primer período
+
+* En el primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que mientras mas rebotes recuperan, se incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación  alta negativa (-0,73), lo que quiere decir que a mayor cantidad de rebotes ofensivos, hay menos victoria.
+
+```{r echo=FALSE}
+plot(Groperiod1)
+```
+
+* Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.knitr::kable(head(PromBLK1[, 1:2]), "simple")
+
+```{r}
+knitr::kable(head(PromFTA1[, 1:2]), "simple")
+
+```
+
 
 ## Conclusión  
 
