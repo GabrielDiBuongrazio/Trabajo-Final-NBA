@@ -1,8 +1,8 @@
 ---
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
   word_document: default
 ---
 
@@ -204,7 +204,7 @@ GrperiodCV33
 plot(Grperiod1)
 ```
 
--   Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.knitr::kable(head(PromBLK1[, 1:2]), "simple")
+-   Por otro lado se sabe que el equipo con mas victorias tiene un promedio de bloqueos del 5.8 por partido, mientras que el equipo con menos victorias tiene un promedio del 5.1 por partido lo cual no muestra tanta relevancia al respecto.
 
 ```{r echo=FALSE,paged.print=FALSE}
 knitr::kable(head(PromBLK1[, 1:2]), "simple")
@@ -537,7 +537,7 @@ knitr::kable(head(PromFTA3[, 1:2]), "simple")
 
 -   En el tercer periodo coeficiente de variación de tiros de 3 realizados es similar para ambos equipos, tanto para el de mayor victorias del periodo tanto para el menor, con un coeficiente de variación del 15,85% y 18,5% respectivamente, lo cual sugiere que la variación de tiros de 3 realizados es baja, lo que significa cantidad de tiros de 3 realizados son muy cercanos a la media, independientemente del rendimiento del equipo.
 
-##Conclusión
+## Conclusión
 
 #### Estadísticas defensivas:
 

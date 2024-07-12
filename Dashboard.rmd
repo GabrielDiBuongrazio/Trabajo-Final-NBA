@@ -87,7 +87,7 @@ Column {data-width=500}
 
 ```{r,echo=FALSE}
 #Gráfico de barras de promedio de victorias de los equipos
-GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y= ~w_prom, name = "Primer Período", marker = list(color = "pink", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
+GRAB1<- plot_ly(data=w_period_1,x=~TEAM, y= ~w_prom, name = "Primer Período", marker = list(color = "magenta", size= 10)) %>% layout(title = "Media de victorias", xaxis = list(title="Equipos"), yaxis = list(title = "Victorias")) 
 GRAB1
 ```
 
