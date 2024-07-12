@@ -431,6 +431,20 @@ CV_period3_3PA <- DF_period3_3PA %>% group_by(TEAM) %>% summarise(CV = sd(t3PA)/
 view(CV_period3_3PA)
 ```
 
+```{r include=FALSE}
+DF_period1_3PA11 <- df_period1_3PA1
+GrperiodCV11 <- ggplot(DF_period1_3PA11,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV11
+
+DF_period2_3PA22 <- df_period2_3PA2
+GrperiodCV22 <- ggplot(DF_period2_3PA22,aes(x=TEAM, y=t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV22
+
+DF_period3_3PA33 <- df_period3_3PA3
+GrperiodCV33 <- ggplot(DF_period3_3PA33,aes(x=TEAM, y= t3PA, color=TEAM)) + geom_point(size=3.0) + theme_classic()
+GrperiodCV33
+```
+
 ```{r Promedio del Número de TIROS LIBRES, include=FALSE}
 ###PRIMERA TEMPORADA
   #Promedio de bloqueos de equipo con mas victorias de la primera temporada
@@ -471,6 +485,7 @@ view(PromFTA3)
 PromFTA3 <- PromFTA3[order(PromFTA3$promedio, decreasing = TRUE),]
 
 ```
+
 
 #### Primer período
 
@@ -534,7 +549,12 @@ knitr::kable(head(PromFTA3[, 1:2]), "simple")
 
 #### Estadísticas ofensivas:
 
--   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada periodo. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor desisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer periodo es baja, lo cual indica que quizás, una mayor taza de puntos hechos implica que se haya tenido que  
+-   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada periodo. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor desisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer periodo es baja, lo cual indica que quizás, una mayor taza de puntos hechos implica que amedida que se realizaban mas puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer periodo, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo periodo la correalación es inversa mientras que en el tercer periodo la correalación es moderada y directa. Con esto se puede definir que dependiendo de  otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
+
+-   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la media de los tiros libres ronda entre 20 y 25 puntos en promedio según los periodos en discución, lo cual no es mucha diferencia hablando en terminos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables mas representativas para la obtención de la victoria. Aunque cabe aclarar que, aunque a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer periodo y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
+
+-   Coeficiente de Variación:
+
 
 ## Bibliografía
 
