@@ -112,7 +112,7 @@ CorA2 <- chart.Correlation(DF_period1_DEFmin)
 ###Cálculo de CV
 DF_period1_STL <- df_period1 %>% filter(TEAM== "Los Angeles Lakers"|TEAM=="Golden State Warriors") %>% select(STL, TEAM)
 CV_period1 <- DF_period1_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
-
+knitr::kable(head(CV_period1[, 1:2]), "simple")
 ### Gráfico de dispersión 
 Grperiod1 <- ggplot(df_period1,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (primer periodo)", x= "WINS", y= "REBOTES") +  geom_smooth(size=3.0, method = "lm", formula = y ~ x, se = FALSE)
 Grperiod1
@@ -148,7 +148,7 @@ CV_period2_min <- DF_period2_STL_min %>% summarise(sd(STL)/mean(STL))
 ###Cálculo de CV
 DF_period2_STL <- df_period2 %>% filter(TEAM== "San Antonio Spurs"|TEAM=="Minnesota Timberwolves") %>% select(STL, TEAM)
 CV_period2 <- DF_period2_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
-
+knitr::kable(head(CV_period2[, 1:2]), "simple")
 ###Gráficpo de dispersión
 Grperiod2 <- ggplot(df_period2,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (segundo periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x, se = FALSE) 
 Grperiod2
@@ -182,7 +182,7 @@ CV_period3_min <- DF_period3_STL_min %>% summarise(sd(STL)/mean(STL))
 ###Cálculo de CV
 DF_period3_STL <- df_period3 %>% filter(TEAM== "Golden State Warriors"|TEAM=="Orlando Magic") %>% select(STL, TEAM)
 CV_period3 <- DF_period3_STL %>% group_by(TEAM) %>% summarise(CV = sd(STL)/mean(STL))
-
+knitr::kable(head(CV_period3[, 1:2]), "simple")
 ###Gráfico de dispersión
 Grperiod3 <- ggplot(df_period3,aes(x=W, y=DREB, color=TEAM)) + geom_point(size=3.0) + theme_classic() + labs(title= "Victorias vs REBOTES (tercer periodo)",x= "WINS", y= "REBOTES") + geom_smooth(size=3.0,method = "lm", formula = y ~ x, se = FALSE) 
 Grperiod3
@@ -216,6 +216,10 @@ knitr::kable(head(PromBLK1[, 1:2]), "simple")
 grid.arrange(GrperiodCV11, ncol = 1, nrow= 1)
 ```
 
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(CV_period1[, 1:2]), "simple")
+```
+
 #### Segundo Período
 
 -   En el segundo período se puede ver que no tienen tanta relación los rebotes con las victorias tanto en el equipo con más victorias (-0.013) como el que tiene menos victorias (0.059),lo que si se puede decir es que el equipo con mas victorias como se ve en el gráfico tiene mayor cantidad de rebotes y es constante con las victorias.
@@ -236,6 +240,10 @@ knitr::kable(head(PromBLK2[, 1:2]), "simple")
 grid.arrange(GrperiodCV22, ncol = 1, nrow= 1)
 ```
 
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(CV_period2[, 1:2]), "simple")
+```
+
 #### Tercer Período
 
 -   En el tercer período el equipo con más victorias tiene una relación moderada con los rebotes (0.54), mientras que el equipo con menos victorias tiene una relación casi nula (0.086). Se puede ver en los gráficos que el crecimiento de victorias y rebotes es evidente, pero los con el equipo con menos victorias no tiene relevancia juzgarlo por los rebotes.
@@ -250,10 +258,14 @@ plot(Grperiod1)
 knitr::kable(head(PromBLK3[, 1:2]), "simple")
 ```
 
--   En el tercer período al igual que en los anteriores dos el porcentaje de variabilidad de los datos es bastante parecido, por lo que se pueden pensar los mismo resultados que en los otros dos períodos.
+-   En el tercer período al igual que en los anteriores dos el porcentaje de variabilidad de los datos es bastante parecido, por lo que se pueden pensar los mismo resultados que en los otros dos períodos. 
 
 ```{r, fig.height=3.5, fig.width=10}
 grid.arrange(GrperiodCV33, ncol = 1, nrow= 1)
+```
+
+```{r echo=FALSE,paged.print=FALSE}
+knitr::kable(head(CV_period3[, 1:2]), "simple")
 ```
 
 ## Análisis de la ofensiva de los equipos por periodos
@@ -489,7 +501,7 @@ PromFTA3 <- PromFTA3[order(PromFTA3$promedio, decreasing = TRUE),]
 
 #### Primer período
 
--   En el primer período se puede ver que el equipo con mas victorias del período tienen una correlación moderada entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que mientras mas rebotes recuperan, se incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación alta negativa (-0,73), lo que quiere decir que a mayor cantidad de rebotes ofensivos, hay menos victorias.
+-   En el primer período se puede ver que el equipo con más victorias del período tienen una correlación moderada entre las victorias y los rebotes ofensivos (0,62),lo cual quiere decir que mientras mas rebotes recuperan, se incrementan su cantidad de victorias, mientras que el equipo con menos victorias tiene un correlación alta negativa (-0,73), lo que quiere decir que a mayor cantidad de rebotes ofensivos, hay menos victorias.
 
 ```{r echo=FALSE}
 plot(Groperiod1)
@@ -557,13 +569,17 @@ grid.arrange(GrperiodCV333, ncol = 1, nrow= 1)
 
 -   Media Aritmética: En ninguno de los tres períodos se ve una diferencia significativa en la media de bloqueos por temporada, salvo en el tercer período y sin embargo nos es una diferencia muy grande lo que quiere decir que según esta herramienta los bloqueos no son un valor que influya demasiado en el éxito de los equipos (tomando como éxito el mayor número de victorias por temporada).
 
--   Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con mas robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no lo es y ahí se puede decir que la cantidad de robos de balón influye.
+-   Coeficiente de Variación: Al igual que en el análisis anterior los resultados son bastante parecidos, todos los equipos (tanto con muchas como con pocas victorias), tienen un coeficiente de variación que ronda del 8% hasta el 11%, lo que quiere decir que son valores que no se toman mucho en cuanto para mejorar y cambiar aunque también se puede ver que los equipos con más victorias cuentan con más robos de balón que los equipos con menos victorias. Esto quiere decir que la constancia por temporada es la misma pero el valor de las variables no lo es y ahí se puede decir que la cantidad de robos de balón influye.
 
 #### Estadísticas ofensivas:
 
+<<<<<<< HEAD
 -   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada periodo. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor desisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer periodo es baja, lo cual indica que quizás, una mayor taza de puntos hechos implica que amedida que se realizaban mas puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer periodo, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo periodo la correalación es inversa mientras que en el tercer periodo la correalación es moderada y directa. Con esto se puede definir que dependiendo de otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
+=======
+-   Correlación Lineal: Durante el primer periodo se analizó la correlación existente entre las victorias y los rebotes ofensivos, según cada período. Se pudo identificar que la correlación entre estas dos variables variaba según el equipo, sea el de mayor o menor victorias del periodo en observación, y que, segun la relación lineal, pueden ser los rebotes ofensivos un factor decisivo para la victoria dependiendo de la eficiencia misma del equipo. La correlación del equipo con mas victorias en el primer período es baja, lo cual indica que quizás, una mayor tasa de puntos hechos implica que a medida que se realizaban más puntos, la cantidad de rebotes ofensivos disminuía, y por el contrario, que con el equipo de menos victorias del primer período, una mayor cantidad de rebotes recuperados implicaría un mayor desgaste e ineficiencia a la hora de anotar puntos. En el segundo período la correlación es inversa mientras que en el tercer período la correalación es moderada y directa. Con esto se puede definir que dependiendo de  otras varaibles en el equipo, una mayor cantidad rebotes ofensivos puedan significar o no la victoria.
+>>>>>>> ae13221bae2f8ed60ada71aaa9075924b81ce17d
 
--   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la media de los tiros libres ronda entre 20 y 25 puntos en promedio según los periodos en discución, lo cual no es mucha diferencia hablando en terminos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables mas representativas para la obtención de la victoria. Aunque cabe aclarar que, aunque a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer periodo y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
+-   Media Aritmética: Se calcularon las medias de los tiros libres intentados. Los resultados indican que la media de los tiros libres ronda entre 20 y 25 puntos en promedio según los periodos en discución, lo cual no es mucha diferencia hablando en términos de los equipos con mayor cantidad de victorias y con menor cantidad de victorias, indicando así que es posible que los tiros libres, aunque si conformen parte del aservo de puntos en el partido, no sea tampoco una de las variables más representativas para la obtención de la victoria. Aunque cabe aclarar que, aunque a priori, pueda ser despreciable la diferencia de promedios entre los dos equipos, en el primer período y en el tercero si se observa una mayor promedio de tiros libres intentados dado el equipo con con mayor cantidad de victorias de lo que se podría deducir que existe una relación, no determinante pero aun así existente.
 
 -   Coeficiente de Variación: Al calcular los coeficientes de varianción de las variable de tiros de 3 intentadoslos correspondiente a los equipos de mayor y menor cantidad de victorias, se haya la particularidad de que los equipos con mayor victoria tienen un coeficiente menor a sus contrapartes, lo cual podría indicar una relación entre la disperción y la eficacia del equipo. Esto puede implicar  que a medida de que los tiros de 3 son menos dispersos, el total de intentos es mayor y una mayor cantidad de intentos podría signifcar entonces mas puntos de 3 anotados.
 
