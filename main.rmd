@@ -583,6 +583,8 @@ grid.arrange(GrperiodCV333, ncol = 1, nrow= 1)
 
 -   Coeficiente de Variación: Al calcular los coeficientes de varianción de las variable de tiros de 3 intentadoslos correspondiente a los equipos de mayor y menor cantidad de victorias, se haya la particularidad de que los equipos con mayor victoria tienen un coeficiente menor a sus contrapartes, lo cual podría indicar una relación entre la disperción y la eficacia del equipo. Esto puede implicar  que a medida de que los tiros de 3 son menos dispersos, el total de intentos es mayor y una mayor cantidad de intentos podría signifcar entonces mas puntos de 3 anotados.
 
+
+
 ## Bibliografía
 
 -   <https://plotly.com/r/line-and-scatter/>
